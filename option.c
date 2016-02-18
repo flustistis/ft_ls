@@ -6,14 +6,14 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 10:08:14 by gmorer            #+#    #+#             */
-/*   Updated: 2016/02/18 11:09:29 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/02/18 11:59:15 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-static int	ft_isin(char c, char *str)
+int		ft_isin(char c, char *str)
 {
 	printf("start ft_isin\n");
 	while(*str)
@@ -52,11 +52,15 @@ static char	*ft_option(char **argv)
 	x = 1;
 	printf("test1\n");
 	donnay = ft_strnew(1);
+	rslt = ft_strnew(1);
 	donnay = ft_strjoin(donnay, "LRart");
 	printf("test2\n");
 	printf("donnay = \"%s\"\n", donnay);
-	if (argv[i][0] != '-')
-		return ("no arg");
+	if (argv[i][0] != '-' || ft_strcmp(argv[1], "-"))
+	{
+		printf("return NULL");
+		return (NULL);
+	}
 	printf("there is arg\n");
 	while ( argv[i] && argv[i][0] == '-')
 	{
@@ -83,6 +87,7 @@ int		main(int argc, char **argv)
 {
 	char *rslt;
 	rslt = ft_option(argv);
+	printf("rslt[0] = \"%c\"\n", rslt[0]);
 	printf("ft_option passed\n");
 	printf("%s\n", rslt);
 	return (0);
