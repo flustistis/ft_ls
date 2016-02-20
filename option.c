@@ -6,13 +6,13 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 10:08:14 by gmorer            #+#    #+#             */
-/*   Updated: 2016/02/18 14:28:12 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/02/20 10:46:53 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int				ft_isin(char c, char *str)
+static int		ft_isin(char c, char *str)
 {
 	while (*str)
 	{
@@ -33,7 +33,7 @@ static char		*ft_charjoin(char *str, char c)
 	return (rslt);
 }
 
-static char		*ft_option(char **argv)
+char			*ft_option(char **argv)
 {
 	char		*rslt;
 	char		*donnay;
