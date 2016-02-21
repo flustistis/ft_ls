@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 12:07:36 by gmorer            #+#    #+#             */
-/*   Updated: 2016/02/21 14:05:50 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/02/21 16:24:16 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@
 
 typedef struct		s_file
 {
-	struct s_file	previous;
+	struct s_file	*previous;
 	char	*name;
-	struct s_file	next;
+	int		size;
+	struct s_file	*next;
 }					t_file;
 
 
