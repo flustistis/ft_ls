@@ -33,29 +33,39 @@ static char		*ft_charjoin(char *str, char c)
 	return (rslt);
 }
 
-char			*ft_option(char **argv)
+int		isoption(char *argv)
 {
+	if(argv[0] == '-')
+		if((argv[1]))
+			return (1);
+	return (0);
+}
+
+char			*ft_option(int argc, char **argv)
+{
+	int			y;
 	char		*rslt;
 	char		*donnay;
 	int			i;
 	int			x;
 
-	if (argv[1])
+	if (argc > 0)
 	{
+		y = 0;
 		i = 1;
 		x = 1;
 		rslt = ft_strnew(1);
 		donnay = "LRart";
-		if (argv[i][0] != '-' || (argv[i][0] == '-' && argv[i][i] == '\0'))
-			return (NULL);
-		while (argv[i] && argv[i][0] == '-')
+		while (y <= argc)
 		{
 			x = 1;
-			while (argv[i][x] && ft_isin(argv[i][x], donnay))
-				rslt = ft_charjoin(rslt, argv[i][x++]);
-			if (!(ft_isin(argv[i][x], donnay)) && argv[i][x])
-				return ("illegal options");
-			i++;
+			if (isoption(argv[y]))
+			{
+				while (argv[i][x] && ft_isin(argv[i][x], donnay))
+					rslt = ft_charjoin(rslt, argv[i][x++]);
+				if (!(ft_isin(argv[i][x], donnay)) && argv[i][x])
+					return (NULL);
+			}
 		}
 		return (rslt);
 	}
