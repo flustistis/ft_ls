@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 10:08:14 by gmorer            #+#    #+#             */
-/*   Updated: 2016/02/21 13:41:28 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/07 12:40:01 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,50 +40,44 @@ static char	*ft_charjoin(char *str, char c)
 	return (rslt);
 }
 
-char	*ft_option(char **argv)
+char	*ft_option(int argc, char **argv)
 {
 	char *rslt;
 	char *donnay;
 	int i;
 	int x;
+	int count;
 
-	if(argv[1])
-	{
-	i = 1;
+	count = countopt(argc, argv);
+	printf("option number = %d\n", count);
+	if(count == 0)
+		return(NULL);
+	i = 0;
 	x = 1;
+	argc = 0;
 	printf("test1\n");
-	//donnay = ft_strnew(1);
 	rslt = ft_strnew(1);
-	//donnay = ft_strjoin(donnay, "LRart");
-	donnay = "LRart";
+	donnay = "lRart-";
 	printf("test2\n");
 	printf("donnay = \"%s\"\n", donnay);
-	if  (argv[i][0] != '-' || (argv[i][0] == '-' && argv[i][i] == '\0'))
-	{
-		printf("return NULL");
-		return (NULL);
-	}
-	printf("there is arg\n");
-	while ( argv[i] && argv[i][0] == '-')
-	{
-		x = 1;
-		printf("test i = %d\n", i);
-		while (argv[i][x] && ft_isin(argv[i][x], donnay))
+	while  (argc < count && (x = 1))
+		if (argv[++i][0] == '-' && (argv[i][1]))
 		{
-			printf("test du char :%c\n", argv[i][x]);//debug
-			rslt = ft_charjoin(rslt, argv[i][x++]);
+			while ((argv[i][x]) && ft_isin(argv[i][x], donnay))
+			{
+				printf("test du char :%c\n", argv[i][x]);//debug
+				rslt = ft_charjoin(rslt, argv[i][x++]);
+			}
+			if ((argv[i][x]) && !(ft_isin(argv[i][x], donnay)))
+			{
+				printf("enter in if for illegal option");
+				return ("illegal options");
+			}
+			argc++;
 		}
-		if (!(ft_isin(argv[i][x], donnay)) && argv[i][x])
-		{
-			printf("enter in if for illegal option");
-			return ("illegal options");
-		}
-		i++;
-	}
+		//printf("end of the while\n");
 	printf("return of ft_option with rslt = \"%s\"\n", rslt);
 	return (rslt);
-}
-return (NULL);
 }
 
 int		main(int argc, char **argv)
@@ -91,7 +85,7 @@ int		main(int argc, char **argv)
 	if(argc > 0)
 	{
 		char *rslt;
-		rslt = ft_option(argv);
+		rslt = ft_option(argc, argv);
 		//printf("rslt[0] = \"%c\"\n", rslt[0]);
 		printf("ft_option passed\n");
 		printf("%s\n", rslt);

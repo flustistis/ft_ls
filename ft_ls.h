@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 12:07:36 by gmorer            #+#    #+#             */
-/*   Updated: 2016/02/22 14:28:48 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/07 12:44:35 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,20 @@ typedef struct liste liste;
 struct liste
 {
 	t_file *first;
+	int option_l;
+	int option_R;
+	int option_a;
+	int option_r;
+	int option_t;
 };
 
+int		countopt(int argc, char **argv);
 char	*ft_lsargv(char *argv);
 t_file	*ft_newfile(char *argv, struct dirent *file);
 char	*strcatturfu(char *s1, char *s2);
 char	*ft_uid(int uid);
 char	*ft_gid(int gid);
-char	*ft_option(int argc, char **argv);
+liste	*ft_option(int argc, char **argv);
+//char	*ft_option(int argc, char **argv);
 
 #endif

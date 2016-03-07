@@ -34,7 +34,7 @@ void	printlist(liste *list)
 
 	filetmp = list->first;
 	printf("%c%s %d %s %s %d %s %s\n", filetmp->type, filetmp->permission, filetmp->linkno, filetmp->useruid, filetmp->groupuid, filetmp->size, filetmp->date, filetmp->name);
-	while(filetmp = filetmp->next)
+	while((filetmp = filetmp->next))
 		printf("%c%s %d %s %s %d %s %s\n", filetmp->type, filetmp->permission, filetmp->linkno, filetmp->useruid, filetmp->groupuid, filetmp->size, filetmp->date, filetmp->name);
 	return ;
 }
@@ -43,7 +43,11 @@ int main(int argc, char **argv)
 {
 	liste	*list;
 
-	list = init(ft_lsargv(argv[1]));
+	list = ft_option(argc, argv);
+	if (argc == 0)
+		list = init("./");
+	else
+		list = init(ft_lsargv(argv[1]));
 	printlist(list);
 	return (0);
 }
