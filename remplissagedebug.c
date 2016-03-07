@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 11:57:23 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/07 12:51:50 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/07 17:07:30 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,37 @@ char			*ft_timels(char *time)
 	return (rslt);
 }
 
-t_file			*ft_newfile(char *argv, struct dirent *file)
+static t_file	*remplissage(t_file *rslt, struct stat plop, liste *list, char *name)
+{
+	rslt->name = name;
+	if ((list->option_l) || (list->option_t))
+	{
+		name = ctime(&plop.st_mtime);
+		rslt->date = ft_timels(ctime(&plop.st_mtime));
+		rslt->time = plop.st_mtime;
+	}
+	if ((list->option_l))
+	{
+		rslt->permission = permission(plop);
+		rslt->linkno = plop.st_nlink;
+		rslt->groupuid = ft_gid(plop.st_gid);
+		rslt->useruid = ft_uid(plop.st_uid);
+		rslt->size = plop.st_size;
+	}
+	if ((list->option_l) || (list->option_R))
+	{
+		rslt->type = ft_type(plop);
+		printf("file type option_l == %d, option_R == %d\n", list->option_l, list->option_R);
+	}
+	rslt->next = NULL;
+	rslt->previous = NULL;
+	return (rslt);
+}
+
+t_file			*ft_newfile(char *argv, struct dirent *file, liste *list)
 {
 	t_file		*rslt;
 	struct stat	plop;
-	char		*test;
 
 	if (lstat(strcatturfu(argv, file->d_name), &plop) == -1)
 	{
@@ -94,53 +120,42 @@ t_file			*ft_newfile(char *argv, struct dirent *file)
 		return (NULL);
 	if (!(file))
 		return (NULL);
-	test = ctime(&plop.st_mtime);
-	rslt->permission = permission(plop);
-	rslt->name = file->d_name;
-	rslt->type = ft_type(plop);
-	rslt->size = plop.st_size;
-	rslt->linkno = plop.st_nlink;
-	rslt->time = plop.st_mtime;
-	rslt->date = ft_timels(ctime(&plop.st_mtime));
-	rslt->next = NULL;
-	rslt->useruid = ft_uid(plop.st_uid);
-	rslt->groupuid = ft_gid(plop.st_gid);
-	rslt->previous = NULL;
+	rslt = remplissage(rslt, plop, list, file->d_name);
 	return (rslt);
 }
 /*
-int			main(int argc, char **argv)
-{
-	liste *list;
-	t_file *filetmp;
-	DIR		*actualdir;
-	struct dirent *myfile;
+   int			main(int argc, char **argv)
+   {
+   liste *list;
+   t_file *filetmp;
+   DIR		*actualdir;
+   struct dirent *myfile;
 
-	list = (liste*)malloc(sizeof(liste));
-	if(!(actualdir = opendir(argv[1])))
-	{
-		perror("test opendir :");
-		return (0);
-	}
-	myfile = readdir(actualdir);
-	filetmp = ft_newfile(argv[1], myfile);
-	list->first = filetmp;
-	while ((myfile = readdir(actualdir)) && filetmp)
-	{
-		filetmp->next = ft_newfile(argv[1], myfile);
-		if ((filetmp->next))
-		{
-			filetmp->next->previous = filetmp;
-			filetmp = filetmp->next;
-		}
-	}
-	printf("%c%s %d %s %s %d %s %s\n", filetmp->type, filetmp->permission,
-	filetmp->linkno, filetmp->useruid, filetmp->groupuid, filetmp->size,
-	filetmp->date, filetmp->name);
-	while ((filetmp = filetmp->previous))
-		printf("%c%s %d %s %s %d %s %s\n", filetmp->type, filetmp->permission,
-		filetmp->linkno, filetmp->useruid, filetmp->groupuid, filetmp->size,
-		filetmp->date, filetmp->name);
-return (0);
-}
-*/
+   list = (liste*)malloc(sizeof(liste));
+   if(!(actualdir = opendir(argv[1])))
+   {
+   perror("test opendir :");
+   return (0);
+   }
+   myfile = readdir(actualdir);
+   filetmp = ft_newfile(argv[1], myfile);
+   list->first = filetmp;
+   while ((myfile = readdir(actualdir)) && filetmp)
+   {
+   filetmp->next = ft_newfile(argv[1], myfile);
+   if ((filetmp->next))
+   {
+   filetmp->next->previous = filetmp;
+   filetmp = filetmp->next;
+   }
+   }
+   printf("%c%s %d %s %s %d %s %s\n", filetmp->type, filetmp->permission,
+   filetmp->linkno, filetmp->useruid, filetmp->groupuid, filetmp->size,
+   filetmp->date, filetmp->name);
+   while ((filetmp = filetmp->previous))
+   printf("%c%s %d %s %s %d %s %s\n", filetmp->type, filetmp->permission,
+   filetmp->linkno, filetmp->useruid, filetmp->groupuid, filetmp->size,
+   filetmp->date, filetmp->name);
+   return (0);
+   }
+   */

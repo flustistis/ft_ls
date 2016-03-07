@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 10:08:14 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/07 12:43:31 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/07 16:27:18 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int			ft_isin(char c, char *str)
 {
+	if (!(str))
+		return (0);
 	while (*str)
 	{
 		if (*str == c)
-		{
 			return (1);
-		}
 		str++;
 	}
 	return (0);
@@ -59,24 +59,21 @@ static char	*ft_optionstr(int argc, char **argv)
 				return ("illegal options");
 			argc++;
 		}
-	ft_strdel(&donnay);
 	return (rslt);
 }
 
 liste		*ft_option(int argc, char **argv)
 {
 	liste *list;
-
 	list = (liste*)malloc(sizeof(liste));
 	char	*str;
-
 	list->option_l = 0;
 	list->option_R = 0;
 	list->option_a = 0;
 	list->option_r = 0;
 	list->option_t = 0;
 	str = ft_optionstr(argc, argv);
-	if (ft_isin('l', str))
+	if ((ft_isin('l', str)))
 		list->option_l = 1;
 	if (ft_isin('R', str))
 		list->option_R = 1;
