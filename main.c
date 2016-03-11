@@ -73,20 +73,21 @@ int main(int argc, char **argv)
 	}
 	i = 0;
 	x = 1;
-	if ((argc - countopt(argc, argv)) == 1)
+	while(isoption(argv[x]))
+		x++;
+	if (x == argc)
 	{
 		list = init("./", list);
 		printlist(list);
 	}
 	else
 	{
-		while(isoption(argv[x]))
-			x++;
 		while (x < argc)
 		{
 			if((list = init(ft_lsargv(argv[x]), list)) != NULL)
 			{
 				printf("%s:\n", argv[x]);
+				printf("printf:\n");
 				printlist(list);
 			}
 			free(list);

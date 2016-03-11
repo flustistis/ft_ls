@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 10:08:14 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/11 10:37:59 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/11 12:13:29 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ static char		*ft_charjoin(char *str, char c)
 
 int			isoption(char *argv)
 {
-	if (argv[0] == '-')
-		if ((argv[1]))
-			return (1);
-	return (0);
+	if(argv)
+		if(argv[0])
+			if (argv[0] == '-')
+				if ((argv[1]))
+					return (1);
+		return (0);
 }
 
 char			*ft_optionstr(int argc, char **argv)
