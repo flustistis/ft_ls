@@ -6,13 +6,13 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 10:08:14 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/07 16:27:18 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/11 10:37:59 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int			ft_isin(char c, char *str)
+int				ft_isin(char c, char *str)
 {
 	if (!(str))
 		return (0);
@@ -25,7 +25,7 @@ int			ft_isin(char c, char *str)
 	return (0);
 }
 
-static char	*ft_charjoin(char *str, char c)
+static char		*ft_charjoin(char *str, char c)
 {
 	char	*rslt;
 
@@ -35,38 +35,50 @@ static char	*ft_charjoin(char *str, char c)
 	return (rslt);
 }
 
-static char	*ft_optionstr(int argc, char **argv)
+int			isoption(char *argv)
 {
+	if (argv[0] == '-')
+		if ((argv[1]))
+			return (1);
+	return (0);
+}
+
+char			*ft_optionstr(int argc, char **argv)
+{
+	int		y;
 	char	*rslt;
 	char	*donnay;
 	int		i;
 	int		x;
-	int		count;
 
-	if ((count = countopt(argc, argv)) == 0)
-		return (NULL);
-	x = 1;
-	i = 0;
-	argc = 0;
-	rslt = ft_strnew(1);
-	donnay = "lRar-t";
-	while (argc < count && (x = 1))
-		if (argv[++i][0] == '-' && (argv[i][1]))
+	if (argc > 0)
+	{
+		y = 0;
+		i = 1;
+		x = 1;
+		rslt = ft_strnew(1);
+		donnay = "lRart";
+		while (isoption(argv[i]))
 		{
-			while ((argv[i][x]) && ft_isin(argv[i][x], donnay))
+			x = 1;
+			while (argv[i][x] && ft_isin(argv[i][x], donnay))
 				rslt = ft_charjoin(rslt, argv[i][x++]);
-			if ((argv[i][x]) && !(ft_isin(argv[i][x], donnay)))
-				return ("illegal options");
-			argc++;
+			if (!(ft_isin(argv[i][x], donnay)) && argv[i][x])
+				return (NULL);
+			i++;
 		}
-	return (rslt);
+		return (rslt);
+	}
+	return (NULL);
 }
 
-liste		*ft_option(int argc, char **argv)
+liste			*ft_option(int argc, char **argv)
 {
-	liste *list;
-	list = (liste*)malloc(sizeof(liste));
 	char	*str;
+	liste	*list;
+
+	if ((list = (liste*)malloc(sizeof(liste))) == NULL)
+		return (NULL);
 	list->option_l = 0;
 	list->option_R = 0;
 	list->option_a = 0;

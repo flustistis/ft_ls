@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 12:07:36 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/07 17:07:49 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/11 10:39:12 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ struct liste
 	int option_t;
 };
 
+int		isoption(char *argv);
 int		countopt(int argc, char **argv);
 char	*ft_lsargv(char *argv);
 t_file	*ft_newfile(char *argv, struct dirent *file, liste *list);
@@ -57,6 +58,6 @@ char	*strcatturfu(char *s1, char *s2);
 char	*ft_uid(int uid);
 char	*ft_gid(int gid);
 liste	*ft_option(int argc, char **argv);
-//char	*ft_option(int argc, char **argv);
+liste	*ft_lstalpha(liste *list);
 
 #endif

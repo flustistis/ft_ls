@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 11:57:23 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/07 17:07:30 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/11 10:41:13 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,7 @@ static t_file	*remplissage(t_file *rslt, struct stat plop, liste *list, char *na
 		rslt->size = plop.st_size;
 	}
 	if ((list->option_l) || (list->option_R))
-	{
 		rslt->type = ft_type(plop);
-		printf("file type option_l == %d, option_R == %d\n", list->option_l, list->option_R);
-	}
 	rslt->next = NULL;
 	rslt->previous = NULL;
 	return (rslt);

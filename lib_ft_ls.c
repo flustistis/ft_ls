@@ -4,22 +4,25 @@ char		*strcatturfu(char *s1, char *s2)
 {
 	char	*rslt;
 	int		i;
+	int		j;
+	size_t	len;
 
+	len = ft_strlen(s1) + ft_strlen(s2) + 1;
+	if ((rslt = (char*)malloc(sizeof(char) * len)) == NULL)
+		return (NULL);
 	i = 0;
-	rslt = (char*)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)));
-	while ((*s1))
+	j = 0;
+	while (s1[i])
 	{
-		rslt[i] = *s1;
-		s1++;
+		rslt[i] = s1[i];
 		i++;
 	}
-	while ((*s2))
+	while (s2[j])
 	{
-		rslt[i] = *s2;
-		s2++;
-		i++;
+		rslt[i + j] = s2[j];
+		j++;
 	}
-	rslt[i] = '\0';
+	rslt[i + j] = '\0';
 	return (rslt);
 }
 
@@ -43,37 +46,44 @@ char		*ft_gid(int gid)
 
 int countopt(int argc, char **argv)
 {
-	int i;
 	int x;
 
 	x = 0;
-	i = 0;
 	if (argc == 0)
 		return(0);
-	while (x < argc)
-	{
-		if(argv[x][0] == '-')
-		{
-		if((argv[x][1]))
-			i++;
-		}
-		//printf("x = %d\n", x);
+	while ((argv[x]) && isoption(argv[x]))
 		x++;
-	}
-	return(i);
+	return(x + 1);
 }
 
+static int testalpha(liste *list)
+{
+	t_file *tmpfile;
 
+	tmpfile = list->first;
+	while((tmpfile->next))
+	{
+		if (ft_strcmp(tmpfile->name, tmpfile->next->name) < 0)
+			return (0);
+		tmpfile = tmpfile->next;
+	}
+	return (1);
+}
 
+liste	*ft_lstalpha(liste *list)
+{
+	t_file *tmpfile;
 
-
-
-
-
-
-
-
-
-
-
-
+	tmpfile = list->first;
+	while(!(testalpha(list)))
+	{
+		tmpfile = list->first;
+		while((tmpfile->next))
+				if (ft_strcmp(tmpfile->name, tmpfile->next->name) < 0)
+				{
+					tmpfile->previous = tmpfile->next;
+				}
+			tmpfile = tmpfile->next;
+	}
+	return (list);
+}

@@ -6,23 +6,34 @@ liste		*init(char *argv, liste *list)
 	DIR *actualdir;
 	struct dirent *myfile;
 
+	filetmp = (t_file*)malloc(sizeof(t_file));
+	filetmp->name = NULL;
 	if (!(actualdir = opendir(argv)))
 	{
 		perror("a.out:");
 		return (NULL);
 	}
 	myfile = readdir(actualdir);
-	filetmp = ft_newfile(argv, myfile, list);
-	list->first = filetmp;
+	if((list->option_a == 1) || (list->option_a == 0 && myfile->d_name[0] != '.'))
+		filetmp = ft_newfile(argv, myfile, list);
 	while ((myfile = readdir(actualdir)) && filetmp)
 	{
-		filetmp->next = ft_newfile(argv, myfile, list);
-		if ((filetmp->next))
+		if((list->option_a == 1) || (list->option_a == 0 && myfile->d_name[0] != '.'))
 		{
-			filetmp->next->previous = filetmp;
-			filetmp = filetmp->next;
+			if((filetmp->name))
+				filetmp->next = ft_newfile(argv, myfile, list);
+			else
+				filetmp = ft_newfile(argv, myfile, list);
+			if ((filetmp->next))
+			{
+				filetmp->next->previous = filetmp;
+				filetmp = filetmp->next;
+			}
 		}
 	}
+	while((filetmp->previous))
+		filetmp = filetmp->previous;
+	list->first = filetmp;
 	return (list);
 }
 
@@ -52,42 +63,35 @@ int main(int argc, char **argv)
 	int i;
 	int x;
 	liste	*list;
-	printf("yolo\n");
 	list = (liste*)malloc(sizeof(liste));
 	if(argc >= 1)
 	{
 		if(countopt(argc, argv) > 0)
-		{
-			printf("there is option\n");
 			list = ft_option(argc, argv);
-		}
 		else
-		{
-			printf("no option\n");
 			list = no_option(list);
-		}
 	}
-	printf("option passer\n");
 	i = 0;
 	x = 1;
 	if ((argc - countopt(argc, argv)) == 1)
 	{
-		printf("no arg\n");
 		list = init("./", list);
 		printlist(list);
 	}
 	else
 	{
-		printf("enter in teh infini\n");
+		while(isoption(argv[x]))
+			x++;
 		while (x < argc)
 		{
-			if(!(argv[x][0] == '-' && (argv[x][1])))
+			if((list = init(ft_lsargv(argv[x]), list)) != NULL)
 			{
-				printf("cool %s est un fichier a ls\n", argv[x]);
-				list = init(ft_lsargv(argv[x]), list);
+				printf("%s:\n", argv[x]);
 				printlist(list);
 			}
-			x++;
+			free(list);
+			list = (liste*)malloc(sizeof(liste));
+		x++;
 		}
 	}
 	return (0);
