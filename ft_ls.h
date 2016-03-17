@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 12:07:36 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/11 10:39:12 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/11 16:29:01 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@
 typedef struct		s_file
 {
 	struct s_file	*previous;
+	struct data			*content;
+	struct s_file	*next;
+}					t_file;
+
+typedef struct data data;
+struct data
+{
 	char	*name;
 	int		size;
 	char	*permission;
@@ -36,8 +43,7 @@ typedef struct		s_file
 	char	*useruid;
 	char	*groupuid;
 	int		linkno;
-	struct s_file	*next;
-}					t_file;
+};
 
 typedef struct liste liste;
 struct liste
@@ -50,6 +56,7 @@ struct liste
 	int option_t;
 };
 
+int		ft_free(liste *list);
 int		isoption(char *argv);
 int		countopt(int argc, char **argv);
 char	*ft_lsargv(char *argv);

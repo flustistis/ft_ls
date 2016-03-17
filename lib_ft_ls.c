@@ -63,7 +63,7 @@ static int testalpha(liste *list)
 	tmpfile = list->first;
 	while((tmpfile->next))
 	{
-		if (ft_strcmp(tmpfile->name, tmpfile->next->name) < 0)
+		if (ft_strcmp(tmpfile->content->name, tmpfile->next->content->name) > 0)
 			return (0);
 		tmpfile = tmpfile->next;
 	}
@@ -72,18 +72,21 @@ static int testalpha(liste *list)
 
 liste	*ft_lstalpha(liste *list)
 {
+	data *tmpdata;;
 	t_file *tmpfile;
-
-	tmpfile = list->first;
 	while(!(testalpha(list)))
 	{
 		tmpfile = list->first;
 		while((tmpfile->next))
-				if (ft_strcmp(tmpfile->name, tmpfile->next->name) < 0)
+		{
+				if (ft_strcmp(tmpfile->content->name, tmpfile->next->content->name) > 0)
 				{
-					tmpfile->previous = tmpfile->next;
+					tmpdata = tmpfile->content;
+					tmpfile->content = tmpfile->next->content;
+					tmpfile->next->content = tmpdata;
 				}
 			tmpfile = tmpfile->next;
+		}
 	}
 	return (list);
 }

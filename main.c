@@ -7,7 +7,8 @@ liste		*init(char *argv, liste *list)
 	struct dirent *myfile;
 
 	filetmp = (t_file*)malloc(sizeof(t_file));
-	filetmp->name = NULL;
+	filetmp->content = (data*)malloc(sizeof(data));
+	filetmp->content->name = NULL;
 	if (!(actualdir = opendir(argv)))
 	{
 		perror("a.out:");
@@ -20,7 +21,7 @@ liste		*init(char *argv, liste *list)
 	{
 		if((list->option_a == 1) || (list->option_a == 0 && myfile->d_name[0] != '.'))
 		{
-			if((filetmp->name))
+			if((filetmp->content->name))
 				filetmp->next = ft_newfile(argv, myfile, list);
 			else
 				filetmp = ft_newfile(argv, myfile, list);
@@ -41,10 +42,11 @@ void	printlist(liste *list)
 {
 	t_file	*filetmp;
 
+	list = ft_lstalpha(list);
 	filetmp = list->first;
-	printf("%c%s %d %s %s %d %s %s\n", filetmp->type, filetmp->permission, filetmp->linkno, filetmp->useruid, filetmp->groupuid, filetmp->size, filetmp->date, filetmp->name);
+	printf("%c%s %d %s %s %d %s %s\n", filetmp->content->type, filetmp->content->permission, filetmp->content->linkno, filetmp->content->useruid, filetmp->content->groupuid, filetmp->content->size, filetmp->content->date, filetmp->content->name);
 	while((filetmp = filetmp->next))
-		printf("%c%s %d %s %s %d %s %s\n", filetmp->type, filetmp->permission, filetmp->linkno, filetmp->useruid, filetmp->groupuid, filetmp->size, filetmp->date, filetmp->name);
+	printf("%c%s %d %s %s %d %s %s\n", filetmp->content->type, filetmp->content->permission, filetmp->content->linkno, filetmp->content->useruid, filetmp->content->groupuid, filetmp->content->size, filetmp->content->date, filetmp->content->name);
 	return ;
 }
 
@@ -90,7 +92,7 @@ int main(int argc, char **argv)
 				printf("printf:\n");
 				printlist(list);
 			}
-			free(list);
+			ft_free(list);
 			list = (liste*)malloc(sizeof(liste));
 		x++;
 		}

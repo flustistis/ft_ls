@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 11:57:23 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/11 10:41:13 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/11 13:24:13 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,23 +81,23 @@ char			*ft_timels(char *time)
 
 static t_file	*remplissage(t_file *rslt, struct stat plop, liste *list, char *name)
 {
-	rslt->name = name;
+	rslt->content->name = name;
 	if ((list->option_l) || (list->option_t))
 	{
 		name = ctime(&plop.st_mtime);
-		rslt->date = ft_timels(ctime(&plop.st_mtime));
-		rslt->time = plop.st_mtime;
+		rslt->content->date = ft_timels(ctime(&plop.st_mtime));
+		rslt->content->time = plop.st_mtime;
 	}
 	if ((list->option_l))
 	{
-		rslt->permission = permission(plop);
-		rslt->linkno = plop.st_nlink;
-		rslt->groupuid = ft_gid(plop.st_gid);
-		rslt->useruid = ft_uid(plop.st_uid);
-		rslt->size = plop.st_size;
+		rslt->content->permission = permission(plop);
+		rslt->content->linkno = plop.st_nlink;
+		rslt->content->groupuid = ft_gid(plop.st_gid);
+		rslt->content->useruid = ft_uid(plop.st_uid);
+		rslt->content->size = plop.st_size;
 	}
 	if ((list->option_l) || (list->option_R))
-		rslt->type = ft_type(plop);
+		rslt->content->type = ft_type(plop);
 	rslt->next = NULL;
 	rslt->previous = NULL;
 	return (rslt);
@@ -114,6 +114,8 @@ t_file			*ft_newfile(char *argv, struct dirent *file, liste *list)
 		return (NULL);
 	}
 	if (!(rslt = (t_file*)malloc(sizeof(t_file))))
+		return (NULL);
+	if(!(rslt->content = (data*)malloc(sizeof(data))))
 		return (NULL);
 	if (!(file))
 		return (NULL);
