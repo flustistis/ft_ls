@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 11:57:23 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/11 13:24:13 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/21 10:36:55 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ char			*ft_timels(char *time)
 	int		i;
 
 	i = 0;
-	rslt = (char*)malloc(sizeof(char) * 13);
+	if((rslt = (char*)malloc(sizeof(char) * 13)) == 0)
+		return (NULL);
 	while (*time != ' ')
 		time++;
 	time++;

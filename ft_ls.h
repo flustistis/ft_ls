@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 12:07:36 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/11 16:29:01 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/22 16:38:33 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ struct liste
 	int option_t;
 };
 
+void	print(liste *list);
 int		ft_free(liste *list);
 int		isoption(char *argv);
 int		countopt(int argc, char **argv);

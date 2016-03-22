@@ -6,17 +6,21 @@ liste		*init(char *argv, liste *list)
 	DIR *actualdir;
 	struct dirent *myfile;
 
-	filetmp = (t_file*)malloc(sizeof(t_file));
-	filetmp->content = (data*)malloc(sizeof(data));
+	if ((filetmp = (t_file*)malloc(sizeof(t_file))) == NULL)
+		return (NULL);
+	if ((filetmp->content = (data*)malloc(sizeof(data))) == NULL)
+		return (NULL);
 	filetmp->content->name = NULL;
 	if (!(actualdir = opendir(argv)))
 	{
 		perror("a.out:");
 		return (NULL);
 	}
-	myfile = readdir(actualdir);
-	if((list->option_a == 1) || (list->option_a == 0 && myfile->d_name[0] != '.'))
-		filetmp = ft_newfile(argv, myfile, list);
+	if ((myfile = readdir(actualdir)) == NULL)
+		return (NULL);
+	if ((list->option_a == 1) || (list->option_a == 0 && myfile->d_name[0] != '.'))
+		if ((filetmp = ft_newfile(argv, myfile, list)) == NULL)
+			return (NULL);
 	while ((myfile = readdir(actualdir)) && filetmp)
 	{
 		if((list->option_a == 1) || (list->option_a == 0 && myfile->d_name[0] != '.'))
@@ -31,23 +35,16 @@ liste		*init(char *argv, liste *list)
 				filetmp = filetmp->next;
 			}
 		}
-	}
+	}/*
+	if (myfile == NULL)
+	{
+		printf("return NULL a la fin du while\n");
+		return (NULL);
+	}*/
 	while((filetmp->previous))
 		filetmp = filetmp->previous;
 	list->first = filetmp;
 	return (list);
-}
-
-void	printlist(liste *list)
-{
-	t_file	*filetmp;
-
-	list = ft_lstalpha(list);
-	filetmp = list->first;
-	printf("%c%s %d %s %s %d %s %s\n", filetmp->content->type, filetmp->content->permission, filetmp->content->linkno, filetmp->content->useruid, filetmp->content->groupuid, filetmp->content->size, filetmp->content->date, filetmp->content->name);
-	while((filetmp = filetmp->next))
-	printf("%c%s %d %s %s %d %s %s\n", filetmp->content->type, filetmp->content->permission, filetmp->content->linkno, filetmp->content->useruid, filetmp->content->groupuid, filetmp->content->size, filetmp->content->date, filetmp->content->name);
-	return ;
 }
 
 liste *no_option(liste *list)
@@ -79,8 +76,13 @@ int main(int argc, char **argv)
 		x++;
 	if (x == argc)
 	{
-		list = init("./", list);
-		printlist(list);
+		if ((list = init("./", list)) == NULL)
+		{
+			printf("return NULL on init\n");
+			return (0);
+		}
+		print(list);
+		ft_free(list);
 	}
 	else
 	{
@@ -89,10 +91,14 @@ int main(int argc, char **argv)
 			if((list = init(ft_lsargv(argv[x]), list)) != NULL)
 			{
 				printf("%s:\n", argv[x]);
-				printf("printf:\n");
-				printlist(list);
+				print(list);
 			}
-			ft_free(list);
+			else
+			{
+				printf("return null on init\n");
+				return (0);
+			}
+				ft_free(list);
 			list = (liste*)malloc(sizeof(liste));
 		x++;
 		}
