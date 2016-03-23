@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/22 16:42:38 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/23 16:00:52 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,4 @@ void		print(liste *list)
 	redirectfunction(tmpfile->content, list);
 	while ((tmpfile = tmpfile->next))
 		redirectfunction(tmpfile->content, list);
-	printf("fini print\n");
 }
