@@ -81,6 +81,8 @@ int main(int argc, char **argv)
 			printf("return NULL on init\n");
 			return (0);
 		}
+		list = ft_lsttime(list);
+		list = ft_lstalpha(list);
 		print(list);
 		ft_free(list);
 	}
@@ -91,6 +93,8 @@ int main(int argc, char **argv)
 			if((list = init(ft_lsargv(argv[x]), list)) != NULL)
 			{
 				printf("%s:\n", argv[x]);
+				list = ft_lsttime(list);
+				list = ft_lstalpha(list);
 				print(list);
 			}
 			else

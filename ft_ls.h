@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 12:07:36 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/22 16:38:33 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/23 13:40:11 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ struct liste
 	int option_t;
 };
 
+liste	*ft_lsttime(liste *list);
 void	print(liste *list);
 int		ft_free(liste *list);
 int		isoption(char *argv);
