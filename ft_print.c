@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/23 16:00:52 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/25 19:35:56 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,18 @@ void		print(liste *list)
 	t_file *tmpfile;
 
 	tmpfile = list->first;
-	redirectfunction(tmpfile->content, list);
-	while ((tmpfile = tmpfile->next))
+	if(list->option_r == 0)
+	{
 		redirectfunction(tmpfile->content, list);
+		while ((tmpfile = tmpfile->next))
+			redirectfunction(tmpfile->content, list);
+	}
+	else
+	{
+		while((tmpfile->next))
+			tmpfile = tmpfile->next;
+		redirectfunction(tmpfile->content, list);
+		while((tmpfile = tmpfile->previous))
+			redirectfunction(tmpfile->content, list);
+	}
 }
