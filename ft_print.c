@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/25 19:35:56 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/25 19:46:40 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static void	printloption(data *content)
 	ft_putstr(content->groupuid);
 	ft_putstr("  ");
 	ft_putnbr(content->size);
-	ft_putstr("  ");
+	ft_putstr(" ");
 	ft_putstr(content->date);
-	ft_putstr("  ");
+	ft_putstr(" ");
 	ft_putendl(content->name);
 }
 
