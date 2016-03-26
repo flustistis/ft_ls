@@ -47,7 +47,6 @@ int			isoption(char *argv)
 
 char			*ft_optionstr(int argc, char **argv)
 {
-	int		y;
 	char	*rslt;
 	char	*donnay;
 	int		i;
@@ -55,7 +54,6 @@ char			*ft_optionstr(int argc, char **argv)
 
 	if (argc > 0)
 	{
-		y = 0;
 		i = 1;
 		x = 1;
 		rslt = ft_strnew(1);
