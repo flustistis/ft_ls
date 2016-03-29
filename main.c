@@ -21,7 +21,7 @@ liste		*init(char *argv, liste *list)
 	if ((list->option_a == 1) || (list->option_a == 0 && myfile->d_name[0] != '.'))
 		if ((filetmp = ft_newfile(argv, myfile, list)) == NULL)
 			return (NULL);
-	while ((myfile = readdir(actualdir)) && filetmp)
+	while (filetmp && (myfile = readdir(actualdir)))
 	{
 		if((list->option_a == 1) || (list->option_a == 0 && myfile->d_name[0] != '.'))
 		{
@@ -47,6 +47,16 @@ liste		*init(char *argv, liste *list)
 	return (list);
 }
 
+liste	*initlist(liste *list)
+{
+	list->totalsize = 0;
+	list->maxlinklen = 0;
+	list->maxuidlen = 0;
+	list->maxgidlen = 0;
+	list->maxsizelen = 0;
+	return (list);
+}
+
 liste *no_option(liste *list)
 {
 	list->option_l = 0;
@@ -59,9 +69,12 @@ liste *no_option(liste *list)
 
 int main(int argc, char **argv)
 {
+	int i;
 	int x;
 	liste	*list;
+
 	list = (liste*)malloc(sizeof(liste));
+	list = initlist(list);
 	if(argc >= 1)
 	{
 		if(countopt(argc, argv) > 0)
@@ -69,6 +82,7 @@ int main(int argc, char **argv)
 		else
 			list = no_option(list);
 	}
+	i = 0;
 	x = 1;
 	while(isoption(argv[x]))
 		x++;

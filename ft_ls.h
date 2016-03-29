@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 12:07:36 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/23 13:40:11 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/29 15:28:48 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,23 @@ struct data
 	char	*useruid;
 	char	*groupuid;
 	int		linkno;
+	char	linkto[1024];
 };
 
 typedef struct liste liste;
 struct liste
 {
-	t_file *first;
-	int option_l;
-	int option_R;
-	int option_a;
-	int option_r;
-	int option_t;
+	int		totalsize;
+	t_file	*first;
+	int		option_l;
+	int		option_R;
+	int		option_a;
+	int		option_r;
+	int		option_t;
+	size_t	maxlinklen;
+	size_t	maxuidlen;
+	size_t	maxgidlen;
+	size_t	maxsizelen;
 };
 
 liste	*ft_lsttime(liste *list);

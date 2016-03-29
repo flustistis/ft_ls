@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 11:57:23 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/23 15:50:46 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/29 15:27:55 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ static t_file	*remplissage(t_file *rslt, struct stat plop, liste *list, char *na
 		rslt->content->date = ft_timels(ctime(&plop.st_mtime));
 		rslt->content->time = plop.st_mtime;
 	}
+	if ((list->option_l) || (list->option_R))
+		rslt->content->type = ft_type(plop);
 	if ((list->option_l))
 	{
 		rslt->content->permission = permission(plop);
@@ -97,8 +99,6 @@ static t_file	*remplissage(t_file *rslt, struct stat plop, liste *list, char *na
 		rslt->content->useruid = ft_uid(plop.st_uid);
 		rslt->content->size = plop.st_size;
 	}
-	if ((list->option_l) || (list->option_R))
-		rslt->content->type = ft_type(plop);
 	rslt->next = NULL;
 	rslt->previous = NULL;
 	return (rslt);
@@ -121,6 +121,23 @@ t_file			*ft_newfile(char *argv, struct dirent *file, liste *list)
 	if (!(file))
 		return (NULL);
 	rslt = remplissage(rslt, plop, list, file->d_name);
+	if((list->option_l))
+	{
+		list->totalsize += rslt->content->size;
+		if(ft_strlen(ft_itoa(rslt->content->linkno)) > list->maxlinklen)
+			list->maxlinklen = ft_strlen(ft_itoa(rslt->content->linkno));
+		if(ft_strlen(rslt->content->groupuid) > list->maxgidlen)
+			list->maxgidlen = ft_strlen(rslt->content->groupuid);
+		if(ft_strlen(rslt->content->useruid) > list->maxuidlen)
+			list->maxuidlen = ft_strlen(rslt->content->useruid);
+		if(ft_strlen(ft_itoa(rslt->content->size)) > list->maxsizelen)
+			list->maxsizelen = ft_strlen(ft_itoa(rslt->content->size));
+	}
+		if((list->option_l && rslt->content->type == 'l'))
+	{
+		ft_memset(rslt->content->linkto, 0, sizeof(char));
+		readlink(strcatturfu(argv, file->d_name), rslt->content->linkto, sizeof(rslt->content->linkto)-1);
+	}
 	return (rslt);
 }
 /*

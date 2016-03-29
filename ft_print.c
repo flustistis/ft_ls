@@ -6,34 +6,60 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/25 19:46:40 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/29 15:36:09 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	printloption(data *content)
+static void	printno(char *str, size_t max)
+{
+	while(ft_strlen(str) < max)
+	{
+		max--;
+		ft_putchar(' ');
+	}
+		ft_putstr(str);
+}
+
+static void	printstr(char *str, size_t max)
+{
+	ft_putstr(str);
+	while(ft_strlen(str) < max)
+	{
+		ft_putchar(' ');
+		max--;
+	}
+}
+
+static void	printloption(data *content, liste *list)
 {
 	ft_putchar(content->type);
 	ft_putstr(content->permission);
 	ft_putstr("  ");
-	ft_putnbr(content->linkno);
+	printno(ft_itoa(content->linkno), list->maxlinklen);
 	ft_putstr("  ");
-	ft_putstr(content->useruid);
+	printstr(content->useruid, list->maxuidlen);
 	ft_putstr("  ");
-	ft_putstr(content->groupuid);
+	printstr(content->groupuid, list->maxgidlen);
 	ft_putstr("  ");
-	ft_putnbr(content->size);
+	printno(ft_itoa(content->size), list->maxsizelen);
 	ft_putstr(" ");
 	ft_putstr(content->date);
 	ft_putstr(" ");
-	ft_putendl(content->name);
+	ft_putstr(content->name);
+	if (content->type == 'l')
+	{
+		ft_putstr(" -> ");
+		ft_putstr(content->linkto);
+	}
+	ft_putchar('\n');
 }
 
 static void	redirectfunction(data *content, liste *list)
 {
 	if (list->option_l)
-		printloption(content);
+		printloption(content, list);
 	else
 		ft_putendl(content->name);
 }
@@ -43,7 +69,13 @@ void		print(liste *list)
 	t_file *tmpfile;
 
 	tmpfile = list->first;
-	if(list->option_r == 0)
+	if((list->option_l))
+	{
+		ft_putstr("total ");
+		ft_putnbr(list->totalsize / 512);
+		ft_putchar('\n');
+	}
+		if(list->option_r == 0)
 	{
 		redirectfunction(tmpfile->content, list);
 		while ((tmpfile = tmpfile->next))
