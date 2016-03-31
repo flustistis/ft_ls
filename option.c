@@ -29,7 +29,7 @@ static char		*ft_charjoin(char *str, char c)
 {
 	char	*rslt;
 
-	rslt = (char*)malloc(sizeof(char) * (ft_strlen(str) + 2));
+	rslt = ft_strnew(ft_strlen(str) + 2);
 	rslt = ft_strcpy(rslt, str);
 	rslt[ft_strlen(rslt)] = c;
 	return (rslt);
@@ -77,8 +77,11 @@ liste			*ft_option(int argc, char **argv)
 	char	*str;
 	liste	*list;
 
+	list = NULL;
 	if ((list = (liste*)malloc(sizeof(liste))) == NULL)
 		return (NULL);
+	memset(list, 0, sizeof(liste));
+	//ft_bzero(&list, sizeof(*list));
 	list->option_l = 0;
 	list->option_R = 0;
 	list->option_a = 0;

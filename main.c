@@ -22,7 +22,6 @@ liste *no_option(liste *list)
 
 int main(int argc, char **argv)
 {
-	int i;
 	int x;
 	liste	*list;
 
@@ -35,7 +34,6 @@ int main(int argc, char **argv)
 		else
 			list = no_option(list);
 	}
-	i = 0;
 	x = 1;
 	while(isoption(argv[x]))
 		x++;

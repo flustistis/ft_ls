@@ -34,6 +34,10 @@ $(NAME) :
 	make -C libft
 	$(CC) $(CFLAGS) $(SRC) -L $(LIB) $(INC) -o $(NAME)
 
+debug :
+	make -C libft
+	$(CC) $(CFLAGS) -g $(SRC) -L $(LIB) $(INC) -o $(NAME)
+
 clean :
 	make -C libft clean
 
