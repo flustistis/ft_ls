@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 12:07:36 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/29 15:28:48 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/30 12:12:03 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ struct data
 typedef struct liste liste;
 struct liste
 {
+	char	*initialpath;
 	int		totalsize;
 	t_file	*first;
 	int		option_l;
@@ -62,6 +63,8 @@ struct liste
 	size_t	maxsizelen;
 };
 
+char	*nxtfd(char *str1, char *str2);
+liste	*init(char *argv, liste *list);
 liste	*ft_lsttime(liste *list);
 void	print(liste *list);
 int		ft_free(liste *list);

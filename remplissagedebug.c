@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 11:57:23 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/29 15:27:55 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/03/30 12:12:06 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ t_file			*ft_newfile(char *argv, struct dirent *file, liste *list)
 	t_file		*rslt;
 	struct stat	plop;
 
-	if (lstat(strcatturfu(argv, file->d_name), &plop) == -1)
+	if (lstat(nxtfd(argv, file->d_name), &plop) == -1)
 	{
 		perror("error stat:");
 		return (NULL);

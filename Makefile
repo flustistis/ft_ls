@@ -6,7 +6,7 @@
 #    By: gmorer <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/21 13:35:40 by gmorer            #+#    #+#              #
-#    Updated: 2016/03/23 11:21:06 by gmorer           ###   ########.fr        #
+#    Updated: 2016/03/30 10:43:58 by gmorer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRC = \
 	option.c\
 	remplissagedebug.c\
 	ft_print.c\
-	ordre.c
+	ordre.c\
+	init.c
 CFLAGS = -Werror -Wall -Wextra
 INC = libft/libft.a
 LIB = libft/

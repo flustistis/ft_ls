@@ -1,52 +1,5 @@
 #include "ft_ls.h"
 
-liste		*init(char *argv, liste *list)
-{
-	t_file *filetmp;
-	DIR *actualdir;
-	struct dirent *myfile;
-
-	if ((filetmp = (t_file*)malloc(sizeof(t_file))) == NULL)
-		return (NULL);
-	if ((filetmp->content = (data*)malloc(sizeof(data))) == NULL)
-		return (NULL);
-	filetmp->content->name = NULL;
-	if (!(actualdir = opendir(argv)))
-	{
-		perror("a.out:");
-		return (NULL);
-	}
-	if ((myfile = readdir(actualdir)) == NULL)
-		return (NULL);
-	if ((list->option_a == 1) || (list->option_a == 0 && myfile->d_name[0] != '.'))
-		if ((filetmp = ft_newfile(argv, myfile, list)) == NULL)
-			return (NULL);
-	while (filetmp && (myfile = readdir(actualdir)))
-	{
-		if((list->option_a == 1) || (list->option_a == 0 && myfile->d_name[0] != '.'))
-		{
-			if((filetmp->content->name))
-				filetmp->next = ft_newfile(argv, myfile, list);
-			else
-				filetmp = ft_newfile(argv, myfile, list);
-			if ((filetmp->next))
-			{
-				filetmp->next->previous = filetmp;
-				filetmp = filetmp->next;
-			}
-		}
-	}/*
-	if (myfile == NULL)
-	{
-		printf("return NULL a la fin du while\n");
-		return (NULL);
-	}*/
-	while((filetmp->previous))
-		filetmp = filetmp->previous;
-	list->first = filetmp;
-	return (list);
-}
-
 liste	*initlist(liste *list)
 {
 	list->totalsize = 0;
@@ -104,7 +57,6 @@ int main(int argc, char **argv)
 		{
 			if((list = init(ft_lsargv(argv[x]), list)) != NULL)
 			{
-				printf("%s:\n", argv[x]);
 				list = ft_lsttime(list);
 				list = ft_lstalpha(list);
 				print(list);
