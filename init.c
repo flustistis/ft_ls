@@ -80,11 +80,7 @@ static t_file *initfile(t_file *filetmp, char *argv, liste *list)
 				filetmp->next->previous = filetmp;
 			if((filetmp->next))
 				filetmp = filetmp->next;
-			if((list->option_R) && filetmp->content->type == 'd')
-				initfile(filetmp, nxtfd(argv, filetmp->content->name), list);
 		}
-	if((list->option_R) && ft_strcmp(argv, list->initialpath) != 0)
-		initfile(filetmp, lstfd(argv), list);
 	return (filetmp);
 }
 
