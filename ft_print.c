@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/29 15:36:09 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/12 12:07:59 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	printloption(data *content, liste *list)
 	ft_putstr(content->permission);
 	ft_putstr("  ");
 	printno(ft_itoa(content->linkno), list->maxlinklen);
-	ft_putstr("  ");
+	ft_putstr(" ");
 	printstr(content->useruid, list->maxuidlen);
 	ft_putstr("  ");
 	printstr(content->groupuid, list->maxgidlen);
@@ -75,18 +75,19 @@ void		print(liste *list)
 		ft_putnbr(list->totalsize / 512);
 		ft_putchar('\n');
 	}
+	if(list->option_r == 0)
+	{
+		redirectfunction(tmpfile->content, list);
 		if(list->option_r == 0)
-	{
-		redirectfunction(tmpfile->content, list);
-		while ((tmpfile = tmpfile->next))
+			while ((tmpfile = tmpfile->next))
+				redirectfunction(tmpfile->content, list);
+		else
+		{
+			while((tmpfile->next))
+				tmpfile = tmpfile->next;
 			redirectfunction(tmpfile->content, list);
-	}
-	else
-	{
-		while((tmpfile->next))
-			tmpfile = tmpfile->next;
-		redirectfunction(tmpfile->content, list);
-		while((tmpfile = tmpfile->previous))
-			redirectfunction(tmpfile->content, list);
+			while((tmpfile = tmpfile->previous))
+				redirectfunction(tmpfile->content, list);
+		}
 	}
 }

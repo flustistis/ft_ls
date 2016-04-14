@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/04/12 12:13:22 by gmorer            #+#    #+#             */
+/*   Updated: 2016/04/12 12:22:11 by gmorer           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
 liste	*initlist(liste *list)
@@ -25,6 +37,8 @@ int main(int argc, char **argv)
 	int x;
 	liste	*list;
 
+	argv[argc] = NULL;
+	ft_putmap(argv);
 	list = (liste*)malloc(sizeof(liste));
 	list = initlist(list);
 	if(argc >= 1)

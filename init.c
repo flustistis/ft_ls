@@ -6,28 +6,11 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 10:24:34 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/31 09:50:01 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/04 16:56:09 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-static char	*lstfd(char *str)
-{
-	char *rslt;
-	int i;
-
-	i = ft_strlen(str);
-	while(str[i] != '/')
-		i--;
-	rslt = ft_strnew(i + 1);
-	while(i >= 0)
-	{
-		rslt[i] = str[i];
-		i--;
-	}
-	return (rslt);
-}
 
 char *nxtfd(char *str1, char *str2)
 {
@@ -89,26 +72,14 @@ static t_file *initfile(t_file *filetmp, char *argv, liste *list)
 liste		*init(char *argv, liste *list)
 {
 	t_file *filetmp;
-	//DIR *actualdir;
 
 	if((filetmp = (t_file*)malloc(sizeof(t_file))) == NULL)
 		return (NULL);
 	if((filetmp->content = (data*)malloc(sizeof(data))) == NULL)
 		return (NULL);
 	filetmp->content->name = NULL;
-	//if((actualdir = opendir(argv)) == NULL)
-	//{
-	//	perror("ft_ls: ");
-	//	return (NULL);
-	//}
 	list->initialpath = argv;
 	filetmp = initfile(filetmp, argv, list);
-	/*
-	   while(filetmp && (file = readdir(actualdir)))
-	   if((list->option_a) || (!list->option_a && file->d_name[0] != '.'))
-	   {
-	   filetmp = initfile(filetmp, argv, list, file);
-	}*/
 	while((filetmp->previous))
 		filetmp = filetmp->previous;
 	list->first = filetmp;
