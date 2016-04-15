@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 10:24:34 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/04 16:56:09 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/15 16:20:59 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,12 @@ char *nxtfd(char *str1, char *str2)
 	return (rslt);
 }
 
-
+char *errorargv(char *str)
+{
+	if(str[ft_strlen(str) - 1] == '/')
+		str[ft_strlen(str) - 1] = '\0';
+	return(str);
+}
 
 static t_file *initfile(t_file *filetmp, char *argv, liste *list)
 {
@@ -49,8 +54,8 @@ static t_file *initfile(t_file *filetmp, char *argv, liste *list)
 
 	if((actualdir = opendir(argv)) == NULL)
 	{
-		perror("ft_ls :");
-		return (NULL);
+		perror(ft_strjoin("ft_ls: ", errorargv(argv)));
+		exit(-1);
 	}
 	while(filetmp && (file = readdir(actualdir)))
 		if((list->option_a) || (!list->option_a && file->d_name[0] != '.'))

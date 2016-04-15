@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 11:19:00 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/23 11:20:50 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/15 13:36:21 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,4 @@ char		*ft_gid(int gid)
 	if((yolo = getgrgid(gid)))
 		return (yolo->gr_name);
 	return(NULL);
-}
-
-int countopt(int argc, char **argv)
-{
-	int x;
-
-	x = 0;
-	if (argc == 0)
-		return(0);
-	while ((argv[x]) && isoption(argv[x]))
-		x++;
-	return(x + 1);
 }

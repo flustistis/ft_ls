@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/12 12:07:59 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/15 17:43:24 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,9 @@ static void	printloption(data *content, liste *list)
 	ft_putstr(" ");
 	ft_putstr(content->name);
 	if (content->type == 'l')
-	{
 		ft_putstr(" -> ");
+	if (content->type == 'l')
 		ft_putstr(content->linkto);
-	}
 	ft_putchar('\n');
 }
 
@@ -64,30 +63,35 @@ static void	redirectfunction(data *content, liste *list)
 		ft_putendl(content->name);
 }
 
-void		print(liste *list)
+char		**print(liste *list, char **yolo)
 {
-	t_file *tmpfile;
+	char	**rslt;
+	t_file	*tmpfile;
 
+	if(!(rslt = (char**)malloc(sizeof(char*))))
+		exit(-1);
+	rslt[0] = NULL;
 	tmpfile = list->first;
-	if((list->option_l))
+	if ((list->option_l))
 	{
 		ft_putstr("total ");
 		ft_putnbr(list->totalsize / 512);
 		ft_putchar('\n');
 	}
-	if(list->option_r == 0)
+	if (list->option_r == 0)
 	{
 		redirectfunction(tmpfile->content, list);
-		if(list->option_r == 0)
+		if (list->option_r == 0)
 			while ((tmpfile = tmpfile->next))
 				redirectfunction(tmpfile->content, list);
 		else
 		{
-			while((tmpfile->next))
+			while ((tmpfile->next))
 				tmpfile = tmpfile->next;
 			redirectfunction(tmpfile->content, list);
-			while((tmpfile = tmpfile->previous))
+			while ((tmpfile = tmpfile->previous))
 				redirectfunction(tmpfile->content, list);
 		}
 	}
+	return (rslt);
 }

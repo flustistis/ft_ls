@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 12:07:36 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/12 12:22:14 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/15 16:38:46 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,16 @@ struct liste
 	size_t	maxsizelen;
 };
 
+int		ft_strstrlen(char **c);
 char	**ft_strstrjoin(char **s1, char **s2);
 char	**ft_strstradd(char *str, char **tab);
 char	**ft_strstrdelfirst(char **c);
 char	*nxtfd(char *str1, char *str2);
 liste	*init(char *argv, liste *list);
 liste	*ft_lsttime(liste *list);
-void	print(liste *list);
+char	**print(liste *list, char **yolo);
 int		ft_free(liste *list);
 int		isoption(char *argv);
-int		countopt(int argc, char **argv);
 char	*ft_lsargv(char *argv);
 t_file	*ft_newfile(char *argv, struct dirent *file, liste *list);
 char	*strcatturfu(char *s1, char *s2);
