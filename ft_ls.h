@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 12:07:36 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/15 16:38:46 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/18 10:21:05 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ struct liste
 	size_t	maxsizelen;
 };
 
+char	**ft_strstrnew(int i);
 int		ft_strstrlen(char **c);
 char	**ft_strstrjoin(char **s1, char **s2);
 char	**ft_strstradd(char *str, char **tab);

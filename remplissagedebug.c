@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 11:57:23 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/30 12:12:06 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/18 11:59:28 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,39 +140,3 @@ t_file			*ft_newfile(char *argv, struct dirent *file, liste *list)
 	}
 	return (rslt);
 }
-/*
-   int			main(int argc, char **argv)
-   {
-   liste *list;
-   t_file *filetmp;
-   DIR		*actualdir;
-   struct dirent *myfile;
-
-   list = (liste*)malloc(sizeof(liste));
-   if(!(actualdir = opendir(argv[1])))
-   {
-   perror("test opendir :");
-   return (0);
-   }
-   myfile = readdir(actualdir);
-   filetmp = ft_newfile(argv[1], myfile);
-   list->first = filetmp;
-   while ((myfile = readdir(actualdir)) && filetmp)
-   {
-   filetmp->next = ft_newfile(argv[1], myfile);
-   if ((filetmp->next))
-   {
-   filetmp->next->previous = filetmp;
-   filetmp = filetmp->next;
-   }
-   }
-   printf("%c%s %d %s %s %d %s %s\n", filetmp->type, filetmp->permission,
-   filetmp->linkno, filetmp->useruid, filetmp->groupuid, filetmp->size,
-   filetmp->date, filetmp->name);
-   while ((filetmp = filetmp->previous))
-   printf("%c%s %d %s %s %d %s %s\n", filetmp->type, filetmp->permission,
-   filetmp->linkno, filetmp->useruid, filetmp->groupuid, filetmp->size,
-   filetmp->date, filetmp->name);
-   return (0);
-   }
-   */

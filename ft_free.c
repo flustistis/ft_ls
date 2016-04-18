@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:37:46 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/23 15:53:48 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/18 12:05:24 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,13 @@ int ft_free(liste *list)
 		free(tmpfile->previous);
 		tmpfile = tmpfile->next;
 	}
+	//free(list->initialpath);
+	list->initialpath = NULL;
 	free(tmpfile->next);
-	free(list);
+	list->maxsizelen = 0;
+	list->maxlinklen = 0;
+	list->maxuidlen = 0;
+	list->totalsize = 0;
+	list->maxgidlen = 0;
 	return (1);
 }

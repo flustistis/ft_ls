@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 10:24:34 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/15 16:20:59 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/18 12:08:18 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ liste		*init(char *argv, liste *list)
 	t_file *filetmp;
 
 	if((filetmp = (t_file*)malloc(sizeof(t_file))) == NULL)
-		return (NULL);
+		exit(-1);
 	if((filetmp->content = (data*)malloc(sizeof(data))) == NULL)
-		return (NULL);
+		exit(-1);;
 	filetmp->content->name = NULL;
 	list->initialpath = argv;
 	filetmp = initfile(filetmp, argv, list);

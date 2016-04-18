@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/15 17:43:24 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/18 12:09:48 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,16 @@ static void	printloption(data *content, liste *list)
 	ft_putchar('\n');
 }
 
-static void	redirectfunction(data *content, liste *list)
+static char	**redirectfunction(data *content, liste *list, char **add)
 {
+	if (list->option_R)
+		if(content->type == 'd' && ft_strcmp(content->name, ".") != 0 && ft_strcmp(content->name, "..") != 0)
+			add = ft_strstradd(nxtfd(list->initialpath,content->name), add);
 	if (list->option_l)
 		printloption(content, list);
 	else
 		ft_putendl(content->name);
+	return (add);
 }
 
 char		**print(liste *list, char **yolo)
@@ -68,9 +72,7 @@ char		**print(liste *list, char **yolo)
 	char	**rslt;
 	t_file	*tmpfile;
 
-	if(!(rslt = (char**)malloc(sizeof(char*))))
-		exit(-1);
-	rslt[0] = NULL;
+	rslt = ft_strstrnew(1);
 	tmpfile = list->first;
 	if ((list->option_l))
 	{
@@ -80,18 +82,21 @@ char		**print(liste *list, char **yolo)
 	}
 	if (list->option_r == 0)
 	{
-		redirectfunction(tmpfile->content, list);
+		rslt = redirectfunction(tmpfile->content, list, rslt);
 		if (list->option_r == 0)
 			while ((tmpfile = tmpfile->next))
-				redirectfunction(tmpfile->content, list);
+				rslt = redirectfunction(tmpfile->content, list, rslt);
 		else
 		{
 			while ((tmpfile->next))
 				tmpfile = tmpfile->next;
-			redirectfunction(tmpfile->content, list);
+			rslt = redirectfunction(tmpfile->content, list, rslt);
 			while ((tmpfile = tmpfile->previous))
-				redirectfunction(tmpfile->content, list);
+				rslt = redirectfunction(tmpfile->content, list, rslt);
 		}
 	}
-	return (rslt);
+	if(list->option_R == 1 && rslt[0] != NULL)
+		return (ft_strstrjoin(rslt, ft_strstrdelfirst(yolo)));
+	else
+		return (ft_strstrdelfirst(yolo));
 }
