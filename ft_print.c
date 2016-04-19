@@ -86,14 +86,14 @@ char		**print(liste *list, char **yolo)
 		if (list->option_r == 0)
 			while ((tmpfile = tmpfile->next))
 				rslt = redirectfunction(tmpfile->content, list, rslt);
-		else
-		{
-			while ((tmpfile->next))
-				tmpfile = tmpfile->next;
+	}
+	else
+	{
+		while ((tmpfile->next))
+			tmpfile = tmpfile->next;
+		rslt = redirectfunction(tmpfile->content, list, rslt);
+		while ((tmpfile = tmpfile->previous))
 			rslt = redirectfunction(tmpfile->content, list, rslt);
-			while ((tmpfile = tmpfile->previous))
-				rslt = redirectfunction(tmpfile->content, list, rslt);
-		}
 	}
 	if(list->option_R == 1 && rslt[0] != NULL)
 		return (ft_strstrjoin(rslt, ft_strstrdelfirst(yolo)));
