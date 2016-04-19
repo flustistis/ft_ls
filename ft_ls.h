@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 12:07:36 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/18 10:21:05 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/19 16:23:06 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ struct data
 typedef struct liste liste;
 struct liste
 {
+	DIR		*actualdir;
 	char	*initialpath;
 	t_file	*first;
 	size_t	maxlinklen;

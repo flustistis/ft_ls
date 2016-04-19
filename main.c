@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/12 12:13:22 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/18 11:57:16 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/19 16:23:22 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static liste	*initlist(liste *list)
 	list->maxuidlen = 0;
 	list->maxgidlen = 0;
 	list->maxsizelen = 0;
+	list->actualdir = NULL;
 	return (list);
 }
 

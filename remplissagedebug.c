@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 11:57:23 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/18 11:59:28 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/19 16:30:03 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,10 @@ static char		*ft_timels(char *time)
 	return (rslt);
 }
 
-static t_file	*remplissage(t_file *rslt, struct stat plop, liste *list, char *name)
+static t_file	*remplissage(t_file *rslt, struct stat plop, liste *list, char name[256])
 {
-	rslt->content->name = name;
+	rslt->content->name = ft_strnew(ft_strlen(name));
+	rslt->content->name = ft_strcpy(rslt->content->name, name);
 	if ((list->option_l) || (list->option_t))
 	{
 		name = ctime(&plop.st_mtime);

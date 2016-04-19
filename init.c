@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 10:24:34 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/18 12:08:18 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/19 16:25:02 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,14 @@ static char *errorargv(char *str)
 
 static t_file *initfile(t_file *filetmp, char *argv, liste *list)
 {
-	DIR *actualdir;
 	struct dirent *file;
 
-	if((actualdir = opendir(argv)) == NULL)
+	if((list->actualdir = opendir(argv)) == NULL)
 	{
 		perror(ft_strjoin("ft_ls: ", errorargv(argv)));
 		exit(-1);
 	}
-	while(filetmp && (file = readdir(actualdir)))
+	while(filetmp && (file = readdir(list->actualdir)))
 		if((list->option_a) || (!list->option_a && file->d_name[0] != '.'))
 		{
 			if((filetmp->content->name))
