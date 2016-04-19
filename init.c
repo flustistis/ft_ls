@@ -80,7 +80,7 @@ liste		*init(char *argv, liste *list)
 
 	if((filetmp = (t_file*)malloc(sizeof(t_file))) == NULL)
 		exit(-1);
-	filetmp = NULL;
+	//filetmp = NULL;
 	if((filetmp->content =(data*) malloc(sizeof(data))) == NULL)
 		exit(-1);
 	filetmp->content->name = NULL;
