@@ -38,7 +38,7 @@ char		*strcatturfu(char *s1, char *s2)
 	return (rslt);
 }
 
-char		*ft_uid(int uid)
+char		*ft_uid(unsigned int uid)
 {
 	struct passwd	*yolo;
 
@@ -47,7 +47,7 @@ char		*ft_uid(int uid)
 	return (NULL);
 }
 
-char		*ft_gid(int gid)
+char		*ft_gid(unsigned int gid)
 {
 	struct group	*yolo;
 

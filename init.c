@@ -40,7 +40,7 @@ char *nxtfd(char *str1, char *str2)
 	return (rslt);
 }
 
-char *errorargv(char *str)
+static char *errorargv(char *str)
 {
 	if(str[ft_strlen(str) - 1] == '/')
 		str[ft_strlen(str) - 1] = '\0';
@@ -76,13 +76,16 @@ static t_file *initfile(t_file *filetmp, char *argv, liste *list)
 
 liste		*init(char *argv, liste *list)
 {
-	t_file *filetmp;
+	t_file	*filetmp;
 
 	if((filetmp = (t_file*)malloc(sizeof(t_file))) == NULL)
 		exit(-1);
-	if((filetmp->content = (data*)malloc(sizeof(data))) == NULL)
-		exit(-1);;
+	filetmp = NULL;
+	if((filetmp->content =(data*) malloc(sizeof(data))) == NULL)
+		exit(-1);
 	filetmp->content->name = NULL;
+	filetmp->content->type = 0;
+	filetmp->content->permission = NULL;
 	list->initialpath = argv;
 	filetmp = initfile(filetmp, argv, list);
 	while((filetmp->previous))

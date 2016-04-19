@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-int				ft_isin(char c, char *str)
+static int			ft_isin(char c, char *str)
 {
 	if (!(str))
 		return (0);
@@ -45,7 +45,7 @@ int			isoption(char *argv)
 		return (0);
 }
 
-char			*ft_optionstr(int argc, char **argv)
+static char		*ft_optionstr(int argc, char **argv)
 {
 	char	*rslt;
 	char	*donnay;

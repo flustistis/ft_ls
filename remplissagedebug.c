@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-char			ft_type(struct stat plop)
+static char		ft_type(struct stat plop)
 {
 	if ((S_ISLNK(plop.st_mode)))
 		return ('l');
@@ -31,7 +31,7 @@ char			ft_type(struct stat plop)
 	return ('e');
 }
 
-char			*permission(struct stat plop)
+static char		*permission(struct stat plop)
 {
 	char *rslt;
 
@@ -59,7 +59,7 @@ char			*permission(struct stat plop)
 	return (rslt);
 }
 
-char			*ft_timels(char *time)
+static char		*ft_timels(char *time)
 {
 	char	*rslt;
 	int		i;
@@ -94,10 +94,10 @@ static t_file	*remplissage(t_file *rslt, struct stat plop, liste *list, char *na
 	if ((list->option_l))
 	{
 		rslt->content->permission = permission(plop);
-		rslt->content->linkno = plop.st_nlink;
+		rslt->content->linkno = (int)plop.st_nlink;
 		rslt->content->groupuid = ft_gid(plop.st_gid);
 		rslt->content->useruid = ft_uid(plop.st_uid);
-		rslt->content->size = plop.st_size;
+		rslt->content->size = (int)plop.st_size;
 	}
 	rslt->next = NULL;
 	rslt->previous = NULL;

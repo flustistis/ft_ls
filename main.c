@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-liste	*initlist(liste *list)
+static liste	*initlist(liste *list)
 {
 	list->totalsize = 0;
 	list->maxlinklen = 0;
@@ -22,7 +22,7 @@ liste	*initlist(liste *list)
 	return (list);
 }
 
-liste *no_option(liste *list)
+static liste *no_option(liste *list)
 {
 	list->option_l = 0;
 	list->option_R = 0;
@@ -32,30 +32,30 @@ liste *no_option(liste *list)
 	return (list);
 }
 
-char	**deloptiondup(char **argv, int x)
+static char	**deloptiondup(char **argv, int x)
 {
-	int i;
-	int len;
-	char **rslt;
+	size_t	i;
+	size_t	len;
+	char	**rslt;
 
 	len = ft_strstrlen(argv);
-	i = x;
+	i = (size_t)x;
 	while(i < len)
 	{
-		argv[i - x] = argv[i];
+		argv[(int)i - x] = argv[i];
 		argv[i] = NULL;
 		i++;
 	}
-	argv[len - x] = NULL;
+	argv[(int)len - x] = NULL;
 	if(!(rslt = (char**)malloc(sizeof(char*) * len)))
 		return(NULL);
 	i = 0;
-	while(i < len - x)
+	while((int)i < (int)len - x)
 	{
 		rslt[i] = ft_strdup(argv[i]);
 		i++;
 	}
-	rslt[len - x] = NULL;
+	rslt[(int)len - x] = NULL;
 	return(rslt);
 }
 

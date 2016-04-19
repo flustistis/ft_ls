@@ -34,37 +34,37 @@ typedef struct		s_file
 typedef struct data data;
 struct data
 {
-	char	*name;
-	int		size;
-	char	*permission;
-	char	type;
-	char	*date;
-	time_t	time;
-	char	*useruid;
-	char	*groupuid;
-	int		linkno;
 	char	linkto[1024];
+	time_t	time;
+	char	*name;
+	char	*permission;
+	char	*groupuid;
+	char	*useruid;
+	char	*date;
+	int		size;
+	int		linkno;
+	char	type;
 };
 
 typedef struct liste liste;
 struct liste
 {
 	char	*initialpath;
-	int		totalsize;
 	t_file	*first;
+	size_t	maxlinklen;
+	size_t	maxuidlen;
+	size_t	maxgidlen;
+	size_t	maxsizelen;
+	int		totalsize;
 	int		option_l;
 	int		option_R;
 	int		option_a;
 	int		option_r;
 	int		option_t;
-	size_t	maxlinklen;
-	size_t	maxuidlen;
-	size_t	maxgidlen;
-	size_t	maxsizelen;
 };
 
-char	**ft_strstrnew(int i);
-int		ft_strstrlen(char **c);
+char	**ft_strstrnew(size_t i);
+size_t		ft_strstrlen(char **c);
 char	**ft_strstrjoin(char **s1, char **s2);
 char	**ft_strstradd(char *str, char **tab);
 char	**ft_strstrdelfirst(char **c);
@@ -77,8 +77,8 @@ int		isoption(char *argv);
 char	*ft_lsargv(char *argv);
 t_file	*ft_newfile(char *argv, struct dirent *file, liste *list);
 char	*strcatturfu(char *s1, char *s2);
-char	*ft_uid(int uid);
-char	*ft_gid(int gid);
+char	*ft_uid(unsigned int uid);
+char	*ft_gid(unsigned int gid);
 liste	*ft_option(int argc, char **argv);
 liste	*ft_lstalpha(liste *list);
 

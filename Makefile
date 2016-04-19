@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = ft_ls
-CC = gcc
+CC = clang
 SRC = \
 	ft_argv.c\
 	ft_free.c\
@@ -23,7 +23,7 @@ SRC = \
 	ordre.c\
 	init.c\
 	libstrstr.c
-CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra -fsanitize=address
 INC = libft/libft.a
 LIB = libft/
 

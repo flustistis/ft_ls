@@ -12,9 +12,9 @@
 
 #include "ft_ls.h"
 
-int		ft_strstrlen(char **c)
+size_t	ft_strstrlen(char **c)
 {
-	int i;
+	size_t i;
 
 	i = 0;
 	while(c[i] != NULL)
@@ -22,19 +22,16 @@ int		ft_strstrlen(char **c)
 	return (i);
 }
 
-char	**ft_strstrnew(int i)
+char	**ft_strstrnew(size_t i)
 {
-	char **rslt;
-	int x;
+	char	**rslt;
+	size_t	x;
 
-	if(!(rslt = (char**)malloc(sizeof(char*) * (i + 1))))
+	if(!(rslt = malloc(sizeof(char*) * (i + 1))))
 		return (NULL);
 	x = 0;
-	while(x <= i + 1)
-	{
-		rslt[x] = NULL;
-		x++;
-	}
+	while(x <= i)
+		rslt[x++] = NULL;
 	return (rslt);
 }
 
@@ -50,7 +47,7 @@ char	**ft_strstrjoin(char **s1, char **s2)
 		return (s1);
 	if(!s1)
 		return (s2);
-	rslt = ft_strstrnew(ft_strstrlen(s1) + ft_strstrlen(s2));
+	rslt = ft_strstrnew(ft_strstrlen(s1) + ft_strstrlen(s2) + 1);
 	while(s1[i1] != NULL)
 	{
 		rslt[i1] = s1[i1];
