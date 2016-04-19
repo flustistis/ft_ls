@@ -79,9 +79,10 @@ liste		*init(char *argv, liste *list)
 
 	if((filetmp = (t_file*)malloc(sizeof(t_file))) == NULL)
 		exit(-1);
-	//filetmp = NULL;
 	if((filetmp->content =(data*) malloc(sizeof(data))) == NULL)
 		exit(-1);
+	filetmp->previous = NULL;
+	filetmp->next = NULL;
 	filetmp->content->name = NULL;
 	filetmp->content->type = 0;
 	filetmp->content->permission = NULL;
