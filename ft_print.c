@@ -75,7 +75,11 @@ char		**print(liste *list, char **yolo)
 	rslt = ft_strstrnew(1);
 	tmpfile = list->first;
 	if(tmpfile->content->name == NULL)
+	{
+		if (list->option_l)
+			ft_putendl("total 0");
 		return(ft_strstrdelfirst(yolo));
+	}
 	if ((list->option_l))
 	{
 		ft_putstr("total ");

@@ -53,9 +53,16 @@ static t_file *initfile(t_file *filetmp, char *argv, liste *list)
 
 	if((list->actualdir = opendir(argv)) == NULL)
 	{
+		list->ok = 0;
+		free(filetmp->content);
+		free(filetmp);
+		filetmp = NULL;
+		//ft_putendl(ft_strjoin("\n", argv));
 		perror(ft_strjoin("ft_ls: ", errorargv(argv)));
-		exit(-1);
+		return(filetmp);
 	}
+	list->ok = 1;
+	list->initialpath = argv;
 	while(filetmp && (file = readdir(list->actualdir)))
 		if((list->option_a) || (!list->option_a && file->d_name[0] != '.'))
 		{
@@ -86,8 +93,12 @@ liste		*init(char *argv, liste *list)
 	filetmp->content->name = NULL;
 	filetmp->content->type = 0;
 	filetmp->content->permission = NULL;
-	list->initialpath = argv;
+	list->initialpath = NULL;
 	filetmp = initfile(filetmp, argv, list);
+	if(list->ok == 0)
+	{
+		return (list);
+	}
 	while((filetmp->previous))
 		filetmp = filetmp->previous;
 	list->first = filetmp;

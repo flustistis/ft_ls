@@ -56,6 +56,7 @@ struct liste
 	size_t	maxuidlen;
 	size_t	maxgidlen;
 	size_t	maxsizelen;
+	int		ok;
 	int		totalsize;
 	int		option_l;
 	int		option_R;

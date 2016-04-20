@@ -20,6 +20,7 @@ static liste	*initlist(liste *list)
 	list->maxgidlen = 0;
 	list->maxsizelen = 0;
 	list->actualdir = NULL;
+	list->ok = 1;
 	return (list);
 }
 
@@ -101,16 +102,17 @@ int main(int argc, char **argv)
 			ft_putstr(":\n");
 			}
 		}
-		if((list = init(ft_lsargv(yolo[0]), list)) != NULL)
+		list = init(ft_lsargv(yolo[0]), list);
+		if(list->ok == 1)
 		{
 			list = ft_lsttime(list);
 			list = ft_lstalpha(list);
 			yolo = print(list, yolo);
 		}
 		else
-			exit(-1);
-		ft_free(list);
+			yolo = ft_strstrdelfirst(yolo);
 		//list = (liste*)malloc(sizeof(liste));
+		ft_free(list);
 		x++;
 	}
 	free(yolo);

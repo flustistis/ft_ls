@@ -23,7 +23,7 @@ SRC = \
 	ordre.c\
 	init.c\
 	libstrstr.c
-CFLAGS = -Werror -Wall -Wextra -fsanitize=address
+CFLAGS = -Werror -Wall -Wextra
 INC = libft/libft.a
 LIB = libft/
 

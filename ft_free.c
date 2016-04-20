@@ -29,17 +29,19 @@ int ft_free(liste *list)
 {
 	t_file	*tmpfile;
 
+	if(list->ok == 0)
+		return(1);
 	tmpfile = list->first;
 	while ((tmpfile->next) && freeMonChainon(list, tmpfile))
 	{
 		free(tmpfile->previous);
 		tmpfile = tmpfile->next;
 	}
-	list->initialpath = NULL;
 	free(tmpfile->next);
 	if(closedir(list->actualdir) == -1)
 		exit(-1);
 	list->maxsizelen = 0;
+	list->initialpath = NULL;
 	list->maxlinklen = 0;
 	list->maxuidlen = 0;
 	list->totalsize = 0;
