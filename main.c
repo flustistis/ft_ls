@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/12 12:13:22 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/19 16:23:22 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/20 11:30:17 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,11 @@ int main(int argc, char **argv)
 		{
 			if(x != 0)
 				ft_putchar('\n');
+			if(x != 0 || (x == 0 && ft_strstrlen(yolo) != 1))
+			{
 			ft_putstr(yolo[0]);
 			ft_putstr(":\n");
+			}
 		}
 		if((list = init(ft_lsargv(yolo[0]), list)) != NULL)
 		{
@@ -110,5 +113,6 @@ int main(int argc, char **argv)
 		//list = (liste*)malloc(sizeof(liste));
 		x++;
 	}
+	free(yolo);
 	return (0);
 }

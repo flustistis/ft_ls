@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/18 12:09:48 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/20 11:50:42 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ char		**print(liste *list, char **yolo)
 
 	rslt = ft_strstrnew(1);
 	tmpfile = list->first;
+	if(tmpfile->content->name == NULL)
+		return(ft_strstrdelfirst(yolo));
 	if ((list->option_l))
 	{
 		ft_putstr("total ");
