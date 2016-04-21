@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/20 11:50:42 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/21 10:26:50 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char		**print(liste *list, char **yolo)
 	if ((list->option_l))
 	{
 		ft_putstr("total ");
-		ft_putnbr(list->totalsize / 512);
+		ft_putnbr(list->totalsize);
 		ft_putchar('\n');
 	}
 	if (list->option_r == 0)

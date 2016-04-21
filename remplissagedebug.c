@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 11:57:23 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/19 16:30:03 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/04/21 10:26:52 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ t_file			*ft_newfile(char *argv, struct dirent *file, liste *list)
 	rslt = remplissage(rslt, plop, list, file->d_name);
 	if((list->option_l))
 	{
-		list->totalsize += rslt->content->size;
+		list->totalsize += (int)plop.st_blocks;
 		if(ft_strlen(ft_itoa(rslt->content->linkno)) > list->maxlinklen)
 			list->maxlinklen = ft_strlen(ft_itoa(rslt->content->linkno));
 		if(ft_strlen(rslt->content->groupuid) > list->maxgidlen)
