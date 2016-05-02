@@ -6,13 +6,13 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/12 12:13:22 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/21 10:08:40 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/02 16:50:16 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static liste	*initlist(liste *list)
+static t_liste	*initlist(t_liste *list)
 {
 	list->totalsize = 0;
 	list->maxlinklen = 0;
@@ -24,10 +24,10 @@ static liste	*initlist(liste *list)
 	return (list);
 }
 
-static liste *no_option(liste *list)
+static t_liste *no_option(t_liste *list)
 {
 	list->option_l = 0;
-	list->option_R = 0;
+	list->option_gr = 0;
 	list->option_a = 0;
 	list->option_r = 0;
 	list->option_t = 0;
@@ -65,13 +65,13 @@ static char	**deloptiondup(char **argv, int x)
 int main(int argc, char **argv)
 {
 	int x;
-	liste	*list;
+	t_liste	*list;
 	int i;
 	char **yolo;
 
 	i = 0;
 	argv[argc] = NULL;
-	list = (liste*)malloc(sizeof(liste));
+	list = (t_liste*)malloc(sizeof(t_liste));
 	list = initlist(list);
 	x = 0;
 	while(isoption(argv[++i]))

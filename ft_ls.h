@@ -6,10 +6,9 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 12:07:36 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/19 16:23:06 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/02 17:10:52 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef FT_LS_H
 # define FT_LS_H
@@ -24,15 +23,7 @@
 # include <stdlib.h>
 # include "libft/libft.h"
 
-typedef struct		s_file
-{
-	struct s_file	*previous;
-	struct data			*content;
-	struct s_file	*next;
-}					t_file;
-
-typedef struct data data;
-struct data
+typedef struct		s_data
 {
 	char	linkto[1024];
 	time_t	time;
@@ -44,10 +35,16 @@ struct data
 	int		size;
 	int		linkno;
 	char	type;
-};
+}					t_data;
 
-typedef struct liste liste;
-struct liste
+typedef struct		s_file
+{
+	struct s_file	*previous;
+	t_data			*content;
+	struct s_file	*next;
+}					t_file;
+
+typedef struct		s_liste
 {
 	DIR		*actualdir;
 	char	*initialpath;
@@ -59,29 +56,29 @@ struct liste
 	int		ok;
 	int		totalsize;
 	int		option_l;
-	int		option_R;
+	int		option_gr;
 	int		option_a;
 	int		option_r;
 	int		option_t;
-};
+}					t_liste;
 
-char	**ft_strstrnew(size_t i);
-size_t		ft_strstrlen(char **c);
-char	**ft_strstrjoin(char **s1, char **s2);
-char	**ft_strstradd(char *str, char **tab);
-char	**ft_strstrdelfirst(char **c);
-char	*nxtfd(char *str1, char *str2);
-liste	*init(char *argv, liste *list);
-liste	*ft_lsttime(liste *list);
-char	**print(liste *list, char **yolo);
-int		ft_free(liste *list);
-int		isoption(char *argv);
-char	*ft_lsargv(char *argv);
-t_file	*ft_newfile(char *argv, struct dirent *file, liste *list);
-char	*strcatturfu(char *s1, char *s2);
-char	*ft_uid(unsigned int uid);
-char	*ft_gid(unsigned int gid);
-liste	*ft_option(int argc, char **argv);
-liste	*ft_lstalpha(liste *list);
+char				**ft_strstrnew(size_t i);
+size_t				ft_strstrlen(char **c);
+char				**ft_strstrjoin(char **s1, char **s2);
+char				**ft_strstradd(char *str, char **tab);
+char				**ft_strstrdelfirst(char **c);
+char				*nxtfd(char *str1, char *str2);
+t_liste				*init(char *argv, t_liste *list);
+t_liste				*ft_lsttime(t_liste *list);
+char				**print(t_liste *list, char **yolo);
+int					ft_free(t_liste *list);
+int					isoption(char *argv);
+char				*ft_lsargv(char *argv);
+t_file				*ft_newfile(char *argv, struct dirent *file, t_liste *list);
+char				*strcatturfu(char *s1, char *s2);
+char				*ft_uid(unsigned int uid);
+char				*ft_gid(unsigned int gid);
+t_liste				*ft_option(int argc, char **argv);
+t_liste				*ft_lstalpha(t_liste *list);
 
 #endif

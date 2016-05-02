@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 11:57:23 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/21 10:26:52 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/02 16:56:40 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static char		*ft_timels(char *time)
 	return (rslt);
 }
 
-static t_file	*remplissage(t_file *rslt, struct stat plop, liste *list, char name[256])
+static t_file	*remplissage(t_file *rslt, struct stat plop, t_liste *list, char name[256])
 {
 	rslt->content->name = ft_strnew(ft_strlen(name));
 	rslt->content->name = ft_strcpy(rslt->content->name, name);
@@ -90,7 +90,7 @@ static t_file	*remplissage(t_file *rslt, struct stat plop, liste *list, char nam
 		rslt->content->date = ft_timels(ctime(&plop.st_mtime));
 		rslt->content->time = plop.st_mtime;
 	}
-	if ((list->option_l) || (list->option_R))
+	if ((list->option_l) || (list->option_gr))
 		rslt->content->type = ft_type(plop);
 	if ((list->option_l))
 	{
@@ -105,7 +105,7 @@ static t_file	*remplissage(t_file *rslt, struct stat plop, liste *list, char nam
 	return (rslt);
 }
 
-t_file			*ft_newfile(char *argv, struct dirent *file, liste *list)
+t_file			*ft_newfile(char *argv, struct dirent *file, t_liste *list)
 {
 	t_file		*rslt;
 	struct stat	plop;
@@ -117,7 +117,7 @@ t_file			*ft_newfile(char *argv, struct dirent *file, liste *list)
 	}
 	if (!(rslt = (t_file*)malloc(sizeof(t_file))))
 		return (NULL);
-	if(!(rslt->content = (data*)malloc(sizeof(data))))
+	if(!(rslt->content = (t_data*)malloc(sizeof(t_data))))
 		return (NULL);
 	if (!(file))
 		return (NULL);

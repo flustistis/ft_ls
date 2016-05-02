@@ -6,13 +6,13 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 11:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/03/23 13:41:27 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/02 17:00:04 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int testalpha(liste *list)
+static int testalpha(t_liste *list)
 {
 	t_file *tmpfile;
 
@@ -26,7 +26,7 @@ static int testalpha(liste *list)
 	return (1);
 }
 
-static int testtime(liste *list)
+static int testtime(t_liste *list)
 {
 	t_file *tmpfile;
 
@@ -40,9 +40,9 @@ static int testtime(liste *list)
 	return (1);
 }
 
-liste	*ft_lstalpha(liste *list)
+t_liste	*ft_lstalpha(t_liste *list)
 {
-	data *tmpdata;;
+	t_data *tmpdata;;
 	t_file *tmpfile;
 
 	if((list->option_t))
@@ -64,9 +64,9 @@ liste	*ft_lstalpha(liste *list)
 	return (list);
 }
 
-liste	*ft_lsttime(liste *list)
+t_liste	*ft_lsttime(t_liste *list)
 {
-	data	*tmpdata;
+	t_data	*tmpdata;
 	t_file	*tmpfile;
 
 	if (!(list->option_t))

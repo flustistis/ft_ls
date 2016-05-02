@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/21 10:26:50 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/02 16:58:19 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	printstr(char *str, size_t max)
 	}
 }
 
-static void	printloption(data *content, liste *list)
+static void	printloption(t_data *content, t_liste *list)
 {
 	ft_putchar(content->type);
 	ft_putstr(content->permission);
@@ -55,9 +55,9 @@ static void	printloption(data *content, liste *list)
 	ft_putchar('\n');
 }
 
-static char	**redirectfunction(data *content, liste *list, char **add)
+static char	**redirectfunction(t_data *content, t_liste *list, char **add)
 {
-	if (list->option_R)
+	if (list->option_gr)
 		if(content->type == 'd' && ft_strcmp(content->name, ".") != 0 && ft_strcmp(content->name, "..") != 0)
 			add = ft_strstradd(nxtfd(list->initialpath,content->name), add);
 	if (list->option_l)
@@ -67,7 +67,7 @@ static char	**redirectfunction(data *content, liste *list, char **add)
 	return (add);
 }
 
-char		**print(liste *list, char **yolo)
+char		**print(t_liste *list, char **yolo)
 {
 	char	**rslt;
 	t_file	*tmpfile;
@@ -101,7 +101,7 @@ char		**print(liste *list, char **yolo)
 		while ((tmpfile = tmpfile->previous))
 			rslt = redirectfunction(tmpfile->content, list, rslt);
 	}
-	if(list->option_R == 1 && rslt[0] != NULL)
+	if(list->option_gr == 1 && rslt[0] != NULL)
 		return (ft_strstrjoin(rslt, ft_strstrdelfirst(yolo)));
 	else
 		return (ft_strstrdelfirst(yolo));

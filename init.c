@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 10:24:34 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/19 16:25:02 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/02 17:08:20 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char *errorargv(char *str)
 	return(str);
 }
 
-static t_file *initfile(t_file *filetmp, char *argv, liste *list)
+static t_file *initfile(t_file *filetmp, char *argv, t_liste *list)
 {
 	struct dirent *file;
 
@@ -80,13 +80,13 @@ static t_file *initfile(t_file *filetmp, char *argv, liste *list)
 
 
 
-liste		*init(char *argv, liste *list)
+t_liste		*init(char *argv, t_liste *list)
 {
 	t_file	*filetmp;
 
 	if((filetmp = (t_file*)malloc(sizeof(t_file))) == NULL)
 		exit(-1);
-	if((filetmp->content =(data*) malloc(sizeof(data))) == NULL)
+	if((filetmp->content = (t_data*) malloc(sizeof(t_data))) == NULL)
 		exit(-1);
 	filetmp->previous = NULL;
 	filetmp->next = NULL;
