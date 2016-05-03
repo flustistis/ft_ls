@@ -1,4 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_argv.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/05/03 11:12:16 by gmorer            #+#    #+#             */
+/*   Updated: 2016/05/03 16:26:46 by gmorer           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
+
+void	printwrite(char **write, t_liste *list)
+{
+	int		i;
+	t_file	*file;
+	struct stat plop;
+	char **dash;
+
+	dash = ft_strstrnew(1);
+	if (!(file = (t_file*)malloc(sizeof(t_file))) || !(file->content = (t_data*)malloc(sizeof(t_data))))
+		exit(-1);
+	i = 0;
+	while (write[i])
+	{
+		if (lstat(write[i], &plop) == -1)
+			exit(-1);
+		file = remplissage(file, plop, list, write[i]);
+		redirectfunction(file->content, list, dash);
+		freeMonChainon(list, file);
+		i++;
+	}
+	free(dash);
+}
 
 char	*ft_lsargv(char *argv)
 {
@@ -12,4 +47,33 @@ char	*ft_lsargv(char *argv)
 			return (argv);
 	}
 	return ("./");
+}
+
+char	**traitor(char **argv, t_liste *list)
+{
+	char		**rslt;
+	size_t		i;
+	struct stat	plop;
+	char		**write;
+
+	ft_putendl("yolo1");
+	argv = ft_strstralpha(argv);
+	rslt = ft_strstrnew(0);
+	write = ft_strstrnew(0);
+	i = 0;
+	while (i < ft_strstrlen(argv))
+	{
+		if (lstat(argv[i], &plop) == -1)
+			perror("ft_ls :");
+		else
+		{
+			if(S_ISDIR(plop.st_mode))
+				rslt = ft_strstradd(argv[i], rslt);
+			else
+				write = ft_strstradd(argv[i], write);
+		}
+	}
+	ft_putendl("yolo");
+	printwrite(write, list);
+	return (rslt);
 }

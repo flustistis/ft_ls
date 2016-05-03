@@ -6,13 +6,13 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:37:46 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/02 16:46:24 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/03 16:20:36 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int freeMonChainon(t_liste *list, t_file *tmpfile)
+int freeMonChainon(t_liste *list, t_file *tmpfile)
 {
 	if(!(tmpfile->next))
 		return (0);
@@ -24,6 +24,21 @@ static int freeMonChainon(t_liste *list, t_file *tmpfile)
 	free(tmpfile->content);
 	return (1);
 }
+/*
+void	ft_freestrstr(char **argv)
+{
+	int i;
+	int len;
+
+	len = ft_strstrlen(argv);
+	i = 0;
+	while(i <= len)
+	{
+		free(argv[i]);
+		i++;
+	}
+	free(argv);
+}*/
 
 int ft_free(t_liste *list)
 {

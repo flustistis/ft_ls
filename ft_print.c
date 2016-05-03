@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/02 16:58:19 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/03 16:23:50 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	printloption(t_data *content, t_liste *list)
 	ft_putchar('\n');
 }
 
-static char	**redirectfunction(t_data *content, t_liste *list, char **add)
+char	**redirectfunction(t_data *content, t_liste *list, char **add)
 {
 	if (list->option_gr)
 		if(content->type == 'd' && ft_strcmp(content->name, ".") != 0 && ft_strcmp(content->name, "..") != 0)
