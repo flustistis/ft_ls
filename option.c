@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 10:08:14 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/02 16:55:25 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/04 16:34:14 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,12 @@ static char		*ft_optionstr(int argc, char **argv)
 			while (argv[i][x] && ft_isin(argv[i][x], donnay))
 				rslt = ft_charjoin(rslt, argv[i][x++]);
 			if (!(ft_isin(argv[i][x], donnay)) && argv[i][x])
-				return (NULL);
+			{
+				ft_putstr("ft_ls: illegal option -- ");
+				ft_putchar(argv[i][x]);
+				ft_putstr("\nusage: ft_ls [-Ralrt] [file ...]\n");
+				exit(-1);
+			}
 			i++;
 		}
 		return (rslt);

@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/12 12:13:22 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/03 16:24:26 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/04 15:45:01 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int main(int argc, char **argv)
 		list = no_option(list);
 	yolo = deloptiondup(argv,x + 1);
 	yolo = traitor(yolo, list);
-	x = 0;
 	while (yolo[0] != NULL)
 	{
 		//ft_putstr("----------");

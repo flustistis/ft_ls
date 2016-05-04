@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:12:16 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/03 16:26:46 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/04 15:44:51 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ char	**traitor(char **argv, t_liste *list)
 	struct stat	plop;
 	char		**write;
 
-	ft_putendl("yolo1");
 	argv = ft_strstralpha(argv);
 	rslt = ft_strstrnew(0);
 	write = ft_strstrnew(0);
@@ -64,7 +63,7 @@ char	**traitor(char **argv, t_liste *list)
 	while (i < ft_strstrlen(argv))
 	{
 		if (lstat(argv[i], &plop) == -1)
-			perror("ft_ls :");
+			perror(ft_strjoin("ft_ls: ", argv[i]));
 		else
 		{
 			if(S_ISDIR(plop.st_mode))
@@ -72,8 +71,14 @@ char	**traitor(char **argv, t_liste *list)
 			else
 				write = ft_strstradd(argv[i], write);
 		}
+		i++;
 	}
-	ft_putendl("yolo");
 	printwrite(write, list);
+	if ((rslt[0]) && (write[0]))
+	{
+		ft_putchar('\n');
+		ft_putstr(rslt[0]);
+		ft_putstr(":\n");
+	}
 	return (rslt);
 }
