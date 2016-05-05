@@ -136,7 +136,7 @@ t_file			*ft_newfile(char *argv, struct dirent *file, t_liste *list)
 	}
 		if((list->option_l && rslt->content->type == 'l'))
 	{
-		ft_memset(rslt->content->linkto, 0, sizeof(char));
+		ft_memset(rslt->content->linkto, 0, 1024);
 		readlink(strcatturfu(argv, file->d_name), rslt->content->linkto, sizeof(rslt->content->linkto)-1);
 	}
 	return (rslt);
