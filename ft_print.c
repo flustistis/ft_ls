@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/06 15:11:09 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/06 16:39:36 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ static void	printloption(t_data *content, t_liste *list)
 	}
 	else
 		printno(ft_itoa(content->size), (list->maxsizelen > 
-					(list->maxmajorlen + list->maxminorlen + 3)) ? 
-				list->maxsizelen : list->maxmajorlen + list->maxminorlen + 3);
+					(list->maxmajorlen + list->maxminorlen + 1)) ? 
+				list->maxsizelen : list->maxmajorlen + list->maxminorlen + 1);
 	ft_putstr(" ");
 	ft_putstr(content->date);
 	ft_putstr(" ");
