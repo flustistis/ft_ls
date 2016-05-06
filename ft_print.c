@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/03 16:23:50 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/06 15:11:09 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,16 @@ static void	printloption(t_data *content, t_liste *list)
 	ft_putstr("  ");
 	printstr(content->groupuid, list->maxgidlen);
 	ft_putstr("  ");
-	printno(ft_itoa(content->size), list->maxsizelen);
+	if (content->type == 'b' || content->type == 'c')
+	{
+		printno(ft_itoa(content->major), list->maxmajorlen + 1);
+		ft_putstr(", ");
+		printno(ft_itoa(content->minor), list->maxminorlen);
+	}
+	else
+		printno(ft_itoa(content->size), (list->maxsizelen > 
+					(list->maxmajorlen + list->maxminorlen + 3)) ? 
+				list->maxsizelen : list->maxmajorlen + list->maxminorlen + 3);
 	ft_putstr(" ");
 	ft_putstr(content->date);
 	ft_putstr(" ");

@@ -6,13 +6,13 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 12:07:36 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/04 15:44:53 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/06 14:57:29 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 # define FT_LS_H
-
+# define _BSD_SOURCE
 # include <grp.h>
 # include <pwd.h>
 # include <dirent.h>
@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <sys/stat.h>
+# include <sys/types.h>
 # include <stdlib.h>
 # include "libft/libft.h"
 
@@ -32,6 +33,8 @@ typedef struct		s_data
 	char	*groupuid;
 	char	*useruid;
 	char	*date;
+	int		major;
+	int		minor;
 	int		size;
 	int		linkno;
 	char	type;
@@ -53,6 +56,8 @@ typedef struct		s_liste
 	size_t	maxuidlen;
 	size_t	maxgidlen;
 	size_t	maxsizelen;
+	size_t	maxmajorlen;
+	size_t	maxminorlen;
 	int		ok;
 	int		totalsize;
 	int		option_l;
@@ -62,6 +67,9 @@ typedef struct		s_liste
 	int		option_t;
 }					t_liste;
 
+//dev_t makedev(int maj, int min);
+//unsigned int major(dev_t dev);
+//unsigned int minor(dev_t dev);
 char				**traitor(char **argv, t_liste *list);
 int					freeMonChainon(t_liste *list, t_file *tmpfile);
 char				**redirectfunction(t_data *content, t_liste *list, char **add);

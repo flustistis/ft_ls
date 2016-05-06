@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 11:57:23 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/03 16:15:55 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/06 15:39:39 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,16 @@ t_file	*remplissage(t_file *rslt, struct stat plop, t_liste *list, char name[256
 		rslt->content->groupuid = ft_gid(plop.st_gid);
 		rslt->content->useruid = ft_uid(plop.st_uid);
 		rslt->content->size = (int)plop.st_size;
+		if(rslt->content->type == 'b' || rslt->content->type == 'c')
+		{
+			rslt->content->major = major(plop.st_rdev);
+			rslt->content->minor = minor(plop.st_rdev);
+		}
+		else
+		{
+			rslt->content->major = 0;
+			rslt->content->minor = 0;
+		}
 	}
 	rslt->next = NULL;
 	rslt->previous = NULL;
@@ -133,11 +143,15 @@ t_file			*ft_newfile(char *argv, struct dirent *file, t_liste *list)
 			list->maxuidlen = ft_strlen(rslt->content->useruid);
 		if(ft_strlen(ft_itoa(rslt->content->size)) > list->maxsizelen)
 			list->maxsizelen = ft_strlen(ft_itoa(rslt->content->size));
-	}
-		if((list->option_l && rslt->content->type == 'l'))
-	{
-		ft_memset(rslt->content->linkto, 0, 1024);
-		readlink(strcatturfu(argv, file->d_name), rslt->content->linkto, sizeof(rslt->content->linkto)-1);
+		if(ft_strlen(ft_itoa(rslt->content->major)) > list->maxmajorlen)
+			list->maxmajorlen = ft_strlen(ft_itoa(rslt->content->major));
+		if(ft_strlen(ft_itoa(rslt->content->minor)) > list->maxminorlen)
+			list->maxminorlen = ft_strlen(ft_itoa(rslt->content->minor));
+		if(rslt->content->type == 'l')
+		{
+			ft_memset(rslt->content->linkto, 0, 1024);
+			readlink(strcatturfu(argv, file->d_name), rslt->content->linkto, sizeof(rslt->content->linkto)-1);
+		}
 	}
 	return (rslt);
 }

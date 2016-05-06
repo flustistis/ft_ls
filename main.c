@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/12 12:13:22 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/04 15:45:01 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/06 15:18:56 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static t_liste	*initlist(t_liste *list)
 	list->maxuidlen = 0;
 	list->maxgidlen = 0;
 	list->maxsizelen = 0;
+	list->maxmajorlen = 0;
+	list->maxminorlen = 0;
 	list->actualdir = NULL;
 	list->ok = 1;
 	return (list);
