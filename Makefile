@@ -22,7 +22,8 @@ SRC = \
 	ft_print.c\
 	ordre.c\
 	init.c\
-	libstrstr.c
+	libstrstr.c\
+	prompt.c
 CFLAGS = -Werror -Wall -Wextra
 INC = libft/libft.a
 LIB = libft/

@@ -24,21 +24,6 @@ int freeMonChainon(t_liste *list, t_file *tmpfile)
 	free(tmpfile->content);
 	return (1);
 }
-/*
-void	ft_freestrstr(char **argv)
-{
-	int i;
-	int len;
-
-	len = ft_strstrlen(argv);
-	i = 0;
-	while(i <= len)
-	{
-		free(argv[i]);
-		i++;
-	}
-	free(argv);
-}*/
 
 int ft_free(t_liste *list)
 {

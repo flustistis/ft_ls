@@ -76,8 +76,9 @@ int main(int argc, char **argv)
 	list = (t_liste*)malloc(sizeof(t_liste));
 	list = initlist(list);
 	x = 0;
-	while(isoption(argv[++i]))
+	while(isoption(argv[++i]) && ft_strcmp(argv[i], "--") != 0)
 		x++;
+	x += ft_strcmp(argv[i], "--") == 0 ? 1 : 0;
 	if(x + 1 == argc)
 	{
 		argv[argc] = ".";
@@ -89,33 +90,21 @@ int main(int argc, char **argv)
 		list = no_option(list);
 	yolo = deloptiondup(argv,x + 1);
 	yolo = traitor(yolo, list);
+	x = 0;
 	while (yolo[0] != NULL)
 	{
-		//ft_putstr("----------");
-		//ft_putmap(yolo);
-		//ft_putstr("----------");
 		list = init(ft_lsargv(yolo[0]), list);
-		x++;
 		if(list->ok == 1)
 		{
 			list = ft_lsttime(list);
 			list = ft_lstalpha(list);
+			promptgr(ft_strstrlen(yolo), x, yolo[0]);
 			yolo = print(list, yolo);
-			if(ft_strstrlen(yolo) != 0)
-			{
-				if(x != 0)
-					ft_putchar('\n');
-				if(x != 0 || (x == 0 && ft_strstrlen(yolo) != 1))
-				{
-				ft_putstr(yolo[0]);
-				ft_putstr(":\n");
-				}
-			}
 		}
 		else
 			yolo = ft_strstrdelfirst(yolo);
-		//list = (liste*)malloc(sizeof(liste));
 		ft_free(list);
+		x++;
 	}
 	free(yolo);
 	return (0);

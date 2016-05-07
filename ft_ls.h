@@ -66,9 +66,7 @@ typedef struct		s_liste
 	int		option_t;
 }					t_liste;
 
-//dev_t makedev(int maj, int min);
-//unsigned int major(dev_t dev);
-//unsigned int minor(dev_t dev);
+int					promptgr(int len, int x, char *name);
 char				**traitor(char **argv, t_liste *list);
 int					freeMonChainon(t_liste *list, t_file *tmpfile);
 char				**redirectfunction(t_data *content, t_liste *list, char **add);

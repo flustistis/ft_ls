@@ -58,7 +58,7 @@ static char		*ft_optionstr(int argc, char **argv)
 		x = 1;
 		rslt = ft_strnew(1);
 		donnay = "lRart";
-		while (isoption(argv[i]))
+		while (isoption(argv[i]) && ft_strcmp(argv[i], "--") != 0)
 		{
 			x = 1;
 			while (argv[i][x] && ft_isin(argv[i][x], donnay))
