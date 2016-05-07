@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-void	printwrite(char **write, t_liste *list)
+static void	printwrite(char **write, t_liste *list)
 {
 	int		i;
 	t_file	*file;

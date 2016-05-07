@@ -101,8 +101,8 @@ t_file	*remplissage(t_file *rslt, struct stat plop, t_liste *list, char name[256
 		rslt->content->size = (int)plop.st_size;
 		if(rslt->content->type == 'b' || rslt->content->type == 'c')
 		{
-			rslt->content->major = major(plop.st_rdev);
-			rslt->content->minor = minor(plop.st_rdev);
+			rslt->content->major = (int)major(plop.st_rdev);
+			rslt->content->minor = (int)minor(plop.st_rdev);
 		}
 		else
 		{

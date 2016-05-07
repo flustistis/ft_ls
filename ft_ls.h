@@ -12,7 +12,6 @@
 
 #ifndef FT_LS_H
 # define FT_LS_H
-# define _BSD_SOURCE
 # include <grp.h>
 # include <pwd.h>
 # include <dirent.h>
