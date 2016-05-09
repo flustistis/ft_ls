@@ -32,6 +32,7 @@ static char		*ft_charjoin(char *str, char c)
 	rslt = ft_strnew(ft_strlen(str) + 2);
 	rslt = ft_strcpy(rslt, str);
 	rslt[ft_strlen(rslt)] = c;
+	free(str);
 	return (rslt);
 }
 

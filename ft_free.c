@@ -21,6 +21,7 @@ int freeMonChainon(t_liste *list, t_file *tmpfile)
 		free(tmpfile->content->permission);
 		free(tmpfile->content->date);
 	}
+	free(tmpfile->content->name);
 	free(tmpfile->content);
 	return (1);
 }

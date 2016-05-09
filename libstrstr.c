@@ -58,6 +58,8 @@ char	**ft_strstrjoin(char **s1, char **s2)
 		rslt[i1 + i2] = s2[i2];
 		i2++;
 	}
+	//free(s1);
+	free(s2);
 	rslt[i1 + i2 + 1] = NULL;
 	return (rslt);
 }
@@ -75,6 +77,7 @@ char	**ft_strstradd(char *str, char **tab)
 		i++;
 	}
 	rslt[i] = str;
+	free(tab);
 	return(rslt);
 }
 

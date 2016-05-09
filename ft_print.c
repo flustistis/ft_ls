@@ -34,10 +34,13 @@ static void	printstr(char *str, size_t max)
 
 static void	printloption(t_data *content, t_liste *list)
 {
+	char	*temp;
 	ft_putchar(content->type);
 	ft_putstr(content->permission);
 	ft_putstr("  ");
-	printno(ft_itoa(content->linkno), list->maxlinklen);
+	temp = ft_itoa(content->linkno);
+	printno(temp, list->maxlinklen);
+	free(temp);
 	ft_putstr(" ");
 	printstr(content->useruid, list->maxuidlen);
 	ft_putstr("  ");
@@ -45,14 +48,22 @@ static void	printloption(t_data *content, t_liste *list)
 	ft_putstr("  ");
 	if (content->type == 'b' || content->type == 'c')
 	{
-		printno(ft_itoa(content->major), list->maxmajorlen + 1);
+		temp = ft_itoa(content->major);
+		printno(temp, list->maxmajorlen + 1);
+		free(temp);
 		ft_putstr(", ");
-		printno(ft_itoa(content->minor), list->maxminorlen);
+		temp = ft_itoa(content->major);
+		printno(temp, list->maxminorlen);
+		free(temp);
 	}
 	else
-		printno(ft_itoa(content->size), (list->maxsizelen > 
-					(list->maxmajorlen + list->maxminorlen + 1)) ? 
+	{
+		temp = ft_itoa(content->size);
+		printno(temp, (list->maxsizelen > 
+		(list->maxmajorlen + list->maxminorlen + 1)) ? 
 				list->maxsizelen : list->maxmajorlen + list->maxminorlen + 1);
+		free(temp);
+	}
 	ft_putstr(" ");
 	ft_putstr(content->date);
 	ft_putstr(" ");
@@ -68,7 +79,9 @@ char	**redirectfunction(t_data *content, t_liste *list, char **add)
 {
 	if (list->option_gr)
 		if(content->type == 'd' && ft_strcmp(content->name, ".") != 0 && ft_strcmp(content->name, "..") != 0)
+		{
 			add = ft_strstradd(nxtfd(list->initialpath,content->name), add);
+		}
 	if (list->option_l)
 		printloption(content, list);
 	else
@@ -111,7 +124,9 @@ char		**print(t_liste *list, char **yolo)
 			rslt = redirectfunction(tmpfile->content, list, rslt);
 	}
 	if(list->option_gr == 1 && rslt[0] != NULL)
+	{
 		return (ft_strstrjoin(rslt, ft_strstrdelfirst(yolo)));
-	else
-		return (ft_strstrdelfirst(yolo));
+	}
+	free(rslt);
+	return (ft_strstrdelfirst(yolo));
 }
