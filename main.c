@@ -95,17 +95,22 @@ int main(int argc, char **argv)
 	while (yolo[0] != NULL)
 	{
 		temp = ft_lsargv(yolo[0]);
+<<<<<<< HEAD
+=======
+		free(yolo[0]);
+>>>>>>> d1224ed9f17d2ce42b5c95ca1c3d4d86e321221e
 		list = init(temp, list);
 		if(list->ok == 1)
 		{
 			list = ft_lsttime(list);
 			list = ft_lstalpha(list);
-			promptgr(ft_strstrlen(yolo), x, yolo[0]);
+			promptgr(ft_strstrlen(yolo), x, temp);
 			yolo = print(list, yolo);
 		}
 		else
 			yolo = ft_strstrdelfirst(yolo);
 		ft_free(list);
+		free(temp);
 		x++;
 	}
 	free(list);

@@ -23,6 +23,7 @@ int freeMonChainon(t_liste *list, t_file *tmpfile)
 		free(tmpfile->content->date);
 		free(tmpfile->content->groupuid);
 	}
+	free(tmpfile->content->name);
 	free(tmpfile->content);
 	free(tmpfile->previous);
 	return (1);

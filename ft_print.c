@@ -34,8 +34,12 @@ static void	printstr(char *str, size_t max)
 
 static void	printloption(t_data *content, t_liste *list)
 {
+<<<<<<< HEAD
 	char *temp;
 
+=======
+	char	*temp;
+>>>>>>> d1224ed9f17d2ce42b5c95ca1c3d4d86e321221e
 	ft_putchar(content->type);
 	ft_putstr(content->permission);
 	ft_putstr("  ");
@@ -53,14 +57,23 @@ static void	printloption(t_data *content, t_liste *list)
 		printno(temp, list->maxmajorlen + 1);
 		free(temp);
 		ft_putstr(", ");
+<<<<<<< HEAD
 		temp = ft_itoa(content->minor);
+=======
+		temp = ft_itoa(content->major);
+>>>>>>> d1224ed9f17d2ce42b5c95ca1c3d4d86e321221e
 		printno(temp, list->maxminorlen);
 		free(temp);
 	}
 	else
 	{
 		temp = ft_itoa(content->size);
+<<<<<<< HEAD
 		printno(temp, (list->maxsizelen > (list->maxmajorlen + list->maxminorlen + 1)) ? 
+=======
+		printno(temp, (list->maxsizelen > 
+		(list->maxmajorlen + list->maxminorlen + 1)) ? 
+>>>>>>> d1224ed9f17d2ce42b5c95ca1c3d4d86e321221e
 				list->maxsizelen : list->maxmajorlen + list->maxminorlen + 1);
 		free(temp);
 	}
@@ -79,7 +92,9 @@ char	**redirectfunction(t_data *content, t_liste *list, char **add)
 {
 	if (list->option_gr)
 		if(content->type == 'd' && ft_strcmp(content->name, ".") != 0 && ft_strcmp(content->name, "..") != 0)
+		{
 			add = ft_strstradd(nxtfd(list->initialpath,content->name), add);
+		}
 	if (list->option_l)
 		printloption(content, list);
 	else
@@ -122,7 +137,9 @@ char		**print(t_liste *list, char **yolo)
 			rslt = redirectfunction(tmpfile->content, list, rslt);
 	}
 	if(list->option_gr == 1 && rslt[0] != NULL)
+	{
 		return (ft_strstrjoin(rslt, ft_strstrdelfirst(yolo)));
-	else
-		return (ft_strstrdelfirst(yolo));
+	}
+	free(rslt);
+	return (ft_strstrdelfirst(yolo));
 }

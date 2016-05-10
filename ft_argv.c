@@ -20,7 +20,9 @@ static void	printwrite(char **write, t_liste *list)
 	char **dash;
 
 	dash = ft_strstrnew(1);
-	if (!(file = (t_file*)malloc(sizeof(t_file))) || !(file->content = (t_data*)malloc(sizeof(t_data))))
+	if (!(file = (t_file*)malloc(sizeof(t_file))))
+		exit(-1);
+	if (!(file->content = (t_data*)malloc(sizeof(t_data))))
 		exit(-1);
 	i = 0;
 	while (write[i])
@@ -29,7 +31,10 @@ static void	printwrite(char **write, t_liste *list)
 			exit(-1);
 		file = remplissage(file, plop, list, write[i]);
 		redirectfunction(file->content, list, dash);
+<<<<<<< HEAD
 		//freeMonChainon(list, file);
+=======
+>>>>>>> d1224ed9f17d2ce42b5c95ca1c3d4d86e321221e
 		if (list->option_l)
 		{
 			free(file->content->permission);
@@ -39,6 +44,10 @@ static void	printwrite(char **write, t_liste *list)
 	}
 	free(file->content);
 	free(file);
+<<<<<<< HEAD
+=======
+	//free(write);
+>>>>>>> d1224ed9f17d2ce42b5c95ca1c3d4d86e321221e
 	free(dash);
 }
 
@@ -88,6 +97,10 @@ char	**traitor(char **argv, t_liste *list)
 		ft_putstr(":\n");
 	}
 	i = 0;
+<<<<<<< HEAD
+=======
+	free(write);
+>>>>>>> d1224ed9f17d2ce42b5c95ca1c3d4d86e321221e
 	free(argv);
 	return (rslt);
 }
