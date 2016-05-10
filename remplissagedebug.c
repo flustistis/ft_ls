@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 11:57:23 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/06 15:40:46 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/10 15:56:46 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,12 +119,17 @@ t_file			*ft_newfile(char *argv, struct dirent *file, t_liste *list)
 {
 	t_file		*rslt;
 	struct stat	plop;
+	char *temp;
 
-	if (lstat(nxtfd(argv, file->d_name), &plop) == -1)
+	temp = nxtfd(argv, file->d_name);
+	if (lstat(temp, &plop) == -1)
 	{
-		perror("error stat:");
+		temp = ft_strjoin("ft_ls :", temp);
+		perror(temp);
+		free(temp);
 		return (NULL);
 	}
+	free(temp);
 	if (!(rslt = (t_file*)malloc(sizeof(t_file))))
 		return (NULL);
 	if(!(rslt->content = (t_data*)malloc(sizeof(t_data))))
@@ -135,18 +140,26 @@ t_file			*ft_newfile(char *argv, struct dirent *file, t_liste *list)
 	if((list->option_l))
 	{
 		list->totalsize += (int)plop.st_blocks;
-		if(ft_strlen(ft_itoa(rslt->content->linkno)) > list->maxlinklen)
-			list->maxlinklen = ft_strlen(ft_itoa(rslt->content->linkno));
+		temp = ft_itoa(rslt->content->linkno);
+		if(ft_strlen(temp) > list->maxlinklen)
+			list->maxlinklen = ft_strlen(temp);
+		free(temp);
 		if(ft_strlen(rslt->content->groupuid) > list->maxgidlen)
 			list->maxgidlen = ft_strlen(rslt->content->groupuid);
 		if(ft_strlen(rslt->content->useruid) > list->maxuidlen)
 			list->maxuidlen = ft_strlen(rslt->content->useruid);
-		if(ft_strlen(ft_itoa(rslt->content->size)) > list->maxsizelen)
-			list->maxsizelen = ft_strlen(ft_itoa(rslt->content->size));
-		if(ft_strlen(ft_itoa(rslt->content->major)) > list->maxmajorlen)
-			list->maxmajorlen = ft_strlen(ft_itoa(rslt->content->major));
-		if(ft_strlen(ft_itoa(rslt->content->minor)) > list->maxminorlen)
-			list->maxminorlen = ft_strlen(ft_itoa(rslt->content->minor));
+		temp = ft_itoa(rslt->content->size);
+		if(ft_strlen(temp) > list->maxsizelen)
+			list->maxsizelen = ft_strlen(temp);
+		free(temp);
+		temp = ft_itoa(rslt->content->major);
+		if(ft_strlen(temp) > list->maxmajorlen)
+			list->maxmajorlen = ft_strlen(temp);
+		free(temp);
+		temp = ft_itoa(rslt->content->minor);
+		if(ft_strlen(temp) > list->maxminorlen)
+			list->maxminorlen = ft_strlen(temp);
+		free(temp);
 		if(rslt->content->type == 'l')
 		{
 			ft_memset(rslt->content->linkto, 0, 1024);

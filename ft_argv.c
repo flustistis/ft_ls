@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:12:16 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/04 15:44:51 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/10 13:25:04 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,16 @@ static void	printwrite(char **write, t_liste *list)
 			exit(-1);
 		file = remplissage(file, plop, list, write[i]);
 		redirectfunction(file->content, list, dash);
-		freeMonChainon(list, file);
+		//freeMonChainon(list, file);
+		if (list->option_l)
+		{
+			free(file->content->permission);
+			free(file->content->date);
+		}
 		i++;
 	}
+	free(file->content);
+	free(file);
 	free(dash);
 }
 
@@ -80,5 +87,7 @@ char	**traitor(char **argv, t_liste *list)
 		ft_putstr(rslt[0]);
 		ft_putstr(":\n");
 	}
+	i = 0;
+	free(argv);
 	return (rslt);
 }

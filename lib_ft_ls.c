@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 11:19:00 by gmorer            #+#    #+#             */
-/*   Updated: 2016/04/15 13:36:21 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/10 15:17:01 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ char		*ft_gid(unsigned int gid)
 	struct group	*yolo;
 
 	if((yolo = getgrgid(gid)))
-		return (yolo->gr_name);
-	return(NULL);
+		return (ft_strdup(yolo->gr_name));
+	return(ft_itoa((int)gid));
 }

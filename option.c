@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 10:08:14 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/04 16:34:14 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/10 13:06:16 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static char		*ft_charjoin(char *str, char c)
 	rslt = ft_strnew(ft_strlen(str) + 2);
 	rslt = ft_strcpy(rslt, str);
 	rslt[ft_strlen(rslt)] = c;
+	free(str);
 	return (rslt);
 }
 

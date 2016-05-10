@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/06 16:39:36 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/10 15:57:56 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,14 @@ static void	printstr(char *str, size_t max)
 
 static void	printloption(t_data *content, t_liste *list)
 {
+	char *temp;
+
 	ft_putchar(content->type);
 	ft_putstr(content->permission);
 	ft_putstr("  ");
-	printno(ft_itoa(content->linkno), list->maxlinklen);
+	temp = ft_itoa(content->linkno);
+	printno(temp, list->maxlinklen);
+	free(temp);
 	ft_putstr(" ");
 	printstr(content->useruid, list->maxuidlen);
 	ft_putstr("  ");
@@ -45,14 +49,21 @@ static void	printloption(t_data *content, t_liste *list)
 	ft_putstr("  ");
 	if (content->type == 'b' || content->type == 'c')
 	{
-		printno(ft_itoa(content->major), list->maxmajorlen + 1);
+		temp = ft_itoa(content->major);
+		printno(temp, list->maxmajorlen + 1);
+		free(temp);
 		ft_putstr(", ");
-		printno(ft_itoa(content->minor), list->maxminorlen);
+		temp = ft_itoa(content->minor);
+		printno(temp, list->maxminorlen);
+		free(temp);
 	}
 	else
-		printno(ft_itoa(content->size), (list->maxsizelen > 
-					(list->maxmajorlen + list->maxminorlen + 1)) ? 
+	{
+		temp = ft_itoa(content->size);
+		printno(temp, (list->maxsizelen > (list->maxmajorlen + list->maxminorlen + 1)) ? 
 				list->maxsizelen : list->maxmajorlen + list->maxminorlen + 1);
+		free(temp);
+	}
 	ft_putstr(" ");
 	ft_putstr(content->date);
 	ft_putstr(" ");
@@ -83,7 +94,7 @@ char		**print(t_liste *list, char **yolo)
 
 	rslt = ft_strstrnew(1);
 	tmpfile = list->first;
-	if(tmpfile->content->name == NULL)
+	if(!tmpfile)
 	{
 		if (list->option_l)
 			ft_putendl("total 0");

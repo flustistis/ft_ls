@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 11:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/03 16:23:35 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/10 12:26:33 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_liste	*ft_lstalpha(t_liste *list)
 	t_data *tmpdata;;
 	t_file *tmpfile;
 
-	if((list->option_t))
+	if((list->option_t) || !list->first)
 		return(list);
 	while(!(testalpha(list)))
 	{
@@ -106,7 +106,7 @@ t_liste	*ft_lsttime(t_liste *list)
 	t_data	*tmpdata;
 	t_file	*tmpfile;
 
-	if (!(list->option_t))
+	if (!(list->option_t) || !list->first)
 		return (list);
 	while(!(testtime(list)))
 	{

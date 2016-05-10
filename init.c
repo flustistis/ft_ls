@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 10:24:34 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/06 15:03:16 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/10 15:57:05 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static t_file *initfile(t_file *filetmp, char *argv, t_liste *list)
 	if((list->actualdir = opendir(argv)) == NULL)
 	{
 		list->ok = 0;
-		free(filetmp->content);
-		free(filetmp);
+		//free(filetmp->content);
+		//free(filetmp);
 		filetmp = NULL;
 		//ft_putendl(ft_strjoin("\n", argv));
 		perror(ft_strjoin("ft_ls: ", errorargv(argv)));
@@ -63,18 +63,20 @@ static t_file *initfile(t_file *filetmp, char *argv, t_liste *list)
 	}
 	list->ok = 1;
 	list->initialpath = argv;
-	while(filetmp && (file = readdir(list->actualdir)))
+	while(/*filetmp &&*/ (file = readdir(list->actualdir)))
+	{
 		if((list->option_a) || (!list->option_a && file->d_name[0] != '.'))
 		{
-			if((filetmp->content->name))
+			if((filetmp/*->content->name) && (filetmp->next*/))
 				filetmp->next = ft_newfile(argv, file, list);
 			else
 				filetmp = ft_newfile(argv, file, list);
-			if((filetmp->next))
+			if((filetmp) && (filetmp->next))
 				filetmp->next->previous = filetmp;
-			if((filetmp->next))
+			if((filetmp) && (filetmp->next))
 				filetmp = filetmp->next;
 		}
+	}
 	return (filetmp);
 }
 
@@ -84,6 +86,7 @@ t_liste		*init(char *argv, t_liste *list)
 {
 	t_file	*filetmp;
 
+	filetmp = NULL;/*
 	if((filetmp = (t_file*)malloc(sizeof(t_file))) == NULL)
 		exit(-1);
 	if((filetmp->content = (t_data*) malloc(sizeof(t_data))) == NULL)
@@ -92,14 +95,14 @@ t_liste		*init(char *argv, t_liste *list)
 	filetmp->next = NULL;
 	filetmp->content->name = NULL;
 	filetmp->content->type = 0;
-	filetmp->content->permission = NULL;
+	filetmp->content->permission = NULL;*/
 	list->initialpath = NULL;
 	filetmp = initfile(filetmp, argv, list);
 	if(list->ok == 0)
 	{
 		return (list);
 	}
-	while((filetmp->previous))
+	while (filetmp && (filetmp->previous))
 		filetmp = filetmp->previous;
 	list->first = filetmp;
 	return (list);

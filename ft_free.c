@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:37:46 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/03 16:20:36 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/10 15:58:04 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 int freeMonChainon(t_liste *list, t_file *tmpfile)
 {
+	free(tmpfile->content->name);
 	if(!(tmpfile->next))
 		return (0);
 	if (list->option_l)
 	{
 		free(tmpfile->content->permission);
 		free(tmpfile->content->date);
+		free(tmpfile->content->groupuid);
 	}
 	free(tmpfile->content);
+	free(tmpfile->previous);
 	return (1);
 }
 
@@ -32,12 +35,11 @@ int ft_free(t_liste *list)
 	if(list->ok == 0)
 		return(1);
 	tmpfile = list->first;
-	while ((tmpfile->next) && freeMonChainon(list, tmpfile))
+	while (tmpfile && (tmpfile->next) && freeMonChainon(list, tmpfile))
 	{
-		free(tmpfile->previous);
 		tmpfile = tmpfile->next;
 	}
-	free(tmpfile->next);
+	(tmpfile) ? freeMonChainon(list, tmpfile) : 0;
 	if(closedir(list->actualdir) == -1)
 		exit(-1);
 	list->maxsizelen = 0;

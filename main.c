@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/12 12:13:22 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/06 15:18:56 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/10 15:57:33 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int main(int argc, char **argv)
 	t_liste	*list;
 	int i;
 	char **yolo;
+	char *temp;
 
 	i = 0;
 	argv[argc] = NULL;
@@ -93,7 +94,8 @@ int main(int argc, char **argv)
 	x = 0;
 	while (yolo[0] != NULL)
 	{
-		list = init(ft_lsargv(yolo[0]), list);
+		temp = ft_lsargv(yolo[0]);
+		list = init(temp, list);
 		if(list->ok == 1)
 		{
 			list = ft_lsttime(list);
@@ -106,6 +108,7 @@ int main(int argc, char **argv)
 		ft_free(list);
 		x++;
 	}
+	free(list);
 	free(yolo);
 	return (0);
 }
