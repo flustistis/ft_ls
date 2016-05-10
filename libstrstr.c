@@ -58,10 +58,6 @@ char	**ft_strstrjoin(char **s1, char **s2)
 		rslt[i1 + i2] = s2[i2];
 		i2++;
 	}
-<<<<<<< HEAD
-=======
-	//free(s1);
->>>>>>> d1224ed9f17d2ce42b5c95ca1c3d4d86e321221e
 	free(s2);
 	rslt[i1 + i2 + 1] = NULL;
 	return (rslt);

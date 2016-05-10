@@ -119,11 +119,7 @@ t_file			*ft_newfile(char *argv, struct dirent *file, t_liste *list)
 {
 	t_file		*rslt;
 	struct stat	plop;
-<<<<<<< HEAD
 	char *temp;
-=======
-	char		*temp;
->>>>>>> d1224ed9f17d2ce42b5c95ca1c3d4d86e321221e
 
 	temp = nxtfd(argv, file->d_name);
 	if (lstat(temp, &plop) == -1)
@@ -140,7 +136,6 @@ t_file			*ft_newfile(char *argv, struct dirent *file, t_liste *list)
 		return (NULL);
 	if (!(file))
 		return (NULL);
-	rslt = list->first;
 	rslt = remplissage(rslt, plop, list, file->d_name);
 	if((list->option_l))
 	{
