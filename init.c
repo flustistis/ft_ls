@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 10:24:34 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/10 15:57:05 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/11 14:39:15 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static t_file *initfile(t_file *filetmp, char *argv, t_liste *list)
 		return(filetmp);
 	}
 	list->ok = 1;
-	list->initialpath = argv;
+	list->initialpath = ft_strdup(argv);
 	while(/*filetmp &&*/ (file = readdir(list->actualdir)))
 	{
 		if((list->option_a) || (!list->option_a && file->d_name[0] != '.'))

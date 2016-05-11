@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/06 10:58:14 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/10 13:05:06 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/11 12:24:04 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	**ft_strstrjoin(char **s1, char **s2)
 		rslt[i1 + i2] = s2[i2];
 		i2++;
 	}
+	free(s1);//
 	free(s2);
 	rslt[i1 + i2 + 1] = NULL;
 	return (rslt);
@@ -72,10 +73,11 @@ char	**ft_strstradd(char *str, char **tab)
 	rslt = ft_strstrnew(ft_strstrlen(tab) + 1);
 	while(tab[i] != NULL)
 	{
-		rslt[i] = tab[i];
+		rslt[i] = (tab[i]);
 		i++;
 	}
 	rslt[i] = str;
+	i = 0;
 	free(tab);
 	return(rslt);
 }
@@ -85,12 +87,12 @@ char	**ft_strstrdelfirst(char **c)
 	int 	i;
 
 	i = 1;
+	free(c[0]);
 	while(c[i] != NULL)
 	{
 		c[i - 1] = c[i];
 		i++;
 	}
-	//free(c[i - 1]);
 	c[i - 1] = NULL;
 	return (c);
 }

@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:12:16 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/10 13:25:04 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/11 13:39:31 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ static void	printwrite(char **write, t_liste *list)
 			free(file->content->permission);
 			free(file->content->date);
 		}
+		free(file->content->name);
+		if (list->option_t)
+			free(file->content->date);
 		i++;
 	}
 	free(file->content);
@@ -49,7 +52,7 @@ char	*ft_lsargv(char *argv)
 		if (ft_strcmp(argv,".") == 0)
 			return ("./");
 		else if (argv[ft_strlen(argv) - 1] != '/')
-			return(strcatturfu(argv, "/"));
+			return(ft_strjoin(argv, "/"));
 		else
 			return (argv);
 	}
@@ -88,6 +91,12 @@ char	**traitor(char **argv, t_liste *list)
 		ft_putstr(":\n");
 	}
 	i = 0;
+	while(write[i])
+	{
+		free(write[i]);
+		i++;
+	}
+	free(write);
 	free(argv);
 	return (rslt);
 }

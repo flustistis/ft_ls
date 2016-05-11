@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/12 12:13:22 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/10 15:57:33 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/11 13:40:48 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int main(int argc, char **argv)
 		argv[argc + 1] = NULL;
 	}
 	if(x > 0)
-		list = ft_option(argc, argv);
+		list = ft_option(argc, argv, list);
 	else
 		list = no_option(list);
 	yolo = deloptiondup(argv,x + 1);
@@ -107,7 +107,9 @@ int main(int argc, char **argv)
 			yolo = ft_strstrdelfirst(yolo);
 		ft_free(list);
 		x++;
+		//free(temp);
 	}
+	//free(temp);
 	free(list);
 	free(yolo);
 	return (0);

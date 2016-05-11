@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/10 15:57:56 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/11 12:15:12 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,14 @@ static void	printloption(t_data *content, t_liste *list)
 
 char	**redirectfunction(t_data *content, t_liste *list, char **add)
 {
+	char	*temp;
 	if (list->option_gr)
 		if(content->type == 'd' && ft_strcmp(content->name, ".") != 0 && ft_strcmp(content->name, "..") != 0)
-			add = ft_strstradd(nxtfd(list->initialpath,content->name), add);
+		{
+			temp = nxtfd(list->initialpath, content->name);
+			add = ft_strstradd(ft_strdup(temp), add);
+			free(temp);
+		}
 	if (list->option_l)
 		printloption(content, list);
 	else
@@ -124,5 +129,6 @@ char		**print(t_liste *list, char **yolo)
 	if(list->option_gr == 1 && rslt[0] != NULL)
 		return (ft_strstrjoin(rslt, ft_strstrdelfirst(yolo)));
 	else
+		free(rslt);
 		return (ft_strstrdelfirst(yolo));
 }

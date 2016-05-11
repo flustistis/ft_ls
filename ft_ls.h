@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 12:07:36 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/06 14:57:29 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/11 12:29:28 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_file				*ft_newfile(char *argv, struct dirent *file, t_liste *list);
 char				*strcatturfu(char *s1, char *s2);
 char				*ft_uid(unsigned int uid);
 char				*ft_gid(unsigned int gid);
-t_liste				*ft_option(int argc, char **argv);
+t_liste				*ft_option(int argc, char **argv, t_liste *list);
 t_liste				*ft_lstalpha(t_liste *list);
 
 #endif

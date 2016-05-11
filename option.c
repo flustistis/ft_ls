@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 10:08:14 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/10 13:06:16 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/11 13:13:02 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,15 @@ static char		*ft_optionstr(int argc, char **argv)
 	return (NULL);
 }
 
-t_liste			*ft_option(int argc, char **argv)
+t_liste			*ft_option(int argc, char **argv, t_liste *list)
 {
-	char	*str;
+	char	*str;/*
 	t_liste	*list;
 
 	list = NULL;
 	if ((list = (t_liste*)malloc(sizeof(t_liste))) == NULL)
 		return (NULL);
-	memset(list, 0, sizeof(t_liste));
+	memset(list, 0, sizeof(t_liste));*/
 	//ft_bzero(&list, sizeof(*list));
 	list->option_l = 0;
 	list->option_gr = 0;

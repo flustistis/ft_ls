@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 11:57:23 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/10 15:56:46 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/11 14:39:19 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ t_file			*ft_newfile(char *argv, struct dirent *file, t_liste *list)
 		if(rslt->content->type == 'l')
 		{
 			ft_memset(rslt->content->linkto, 0, 1024);
-			readlink(strcatturfu(argv, file->d_name), rslt->content->linkto, sizeof(rslt->content->linkto)-1);
+			readlink(ft_strjoin(argv, file->d_name), rslt->content->linkto, sizeof(rslt->content->linkto)-1);
 		}
 	}
 	return (rslt);
