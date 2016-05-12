@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:12:16 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/12 10:09:00 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/12 15:17:14 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,56 +14,86 @@
 
 static void	printwrite(char **write, t_liste *list)
 {
-	int		i;
-	t_file	*file;
-	struct stat plop;
-	char **dash;
+	int			i;
+	t_file		*file;
+	struct stat	plop;
+	char		**dash;
 
 	dash = ft_strstrnew(1);
-	if (!(file = (t_file*)malloc(sizeof(t_file))) || !(file->content = (t_data*)malloc(sizeof(t_data))))
-		exit(-1);
+	!(file = (t_file*)malloc(sizeof(t_file))) ? exit(-1) : NULL;
+	!(file->content = (t_data*)malloc(sizeof(t_data))) ? exit(-1) : NULL;
 	i = 0;
 	while (write[i])
 	{
-		if (lstat(write[i], &plop) == -1)
-			exit(-1);
-		file = remplissage(file, plop, list, write[i]);
+		lstat(write[i], &plop) == -1 ? exit(-1) : NULL;
+		file = remplissage(file, plop, list, write[i++]);
 		redirectfunction(file->content, list, dash);
-		//freeMonChainon(list, file);
-		if (list->option_l)
-		{
-			free(file->content->permission);
-			free(file->content->date);
-		}
+		list->option_l ? free(file->content->groupuid) : NULL;
+		list->option_l ? free(file->content->permission) : NULL;
+		list->option_l || list->option_t ? free(file->content->date) : NULL;
 		free(file->content->name);
 		if (list->option_t)
 			free(file->content->date);
-		i++;
 	}
 	free(file->content);
 	free(file);
 	free(dash);
 }
+void printless(t_data *content, t_liste *list, char *temp)
+{
+	if (content->type == 'b' || content->type == 'c')
+	{
+		temp = ft_itoa(content->major);
+		printno(temp, list->maxmajorlen + 1);
+		free(temp);
+		ft_putstr(", ");
+		temp = ft_itoa(content->minor);
+		printno(temp, list->maxminorlen);
+		free(temp);
+		}
+	else
+	{
+		temp = ft_itoa(content->size);
+		printno(temp, (list->maxsizelen > (list->maxmajorlen +
+		list->maxminorlen + 1)) ? list->maxsizelen :
+		list->maxmajorlen + list->maxminorlen + 1);
+		free(temp);
+	}
+}
 
-char	*ft_lsargv(char *argv)
+char		*ft_lsargv(char *argv)
 {
 	if ((argv))
 	{
-		if (ft_strcmp(argv,".") == 0)
+		if (ft_strcmp(argv, ".") == 0)
 			return (ft_strdup("./"));
 		else if (argv[ft_strlen(argv) - 1] != '/')
-		{
-			return(ft_strjoin(argv, "/"));
-		}
+			return (ft_strjoin(argv, "/"));
 		else
-		{
-			return (argv);
-		}
+			return (ft_strdup(argv));
 	}
 	return (ft_strdup("./"));
 }
 
-char	**traitor(char **argv, t_liste *list)
+void	test(char **rslt, char **write, char **argv, t_liste *list)
+{
+	int i;
+
+	printwrite(write, list);
+	if ((rslt[0]) && (write[0]))
+	{
+		ft_putchar('\n');
+		ft_putstr(rslt[0]);
+		ft_putstr(":\n");
+	}
+	i = 0;
+	while (write[i])
+		free(write[i++]);
+	free(write);
+	free(argv);
+}
+
+char		**traitor(char **argv, t_liste *list)
 {
 	char		**rslt;
 	size_t		i;
@@ -87,20 +117,6 @@ char	**traitor(char **argv, t_liste *list)
 		}
 		i++;
 	}
-	printwrite(write, list);
-	if ((rslt[0]) && (write[0]))
-	{
-		ft_putchar('\n');
-		ft_putstr(rslt[0]);
-		ft_putstr(":\n");
-	}
-	i = 0;
-	while(write[i])
-	{
-		free(write[i]);
-		i++;
-	}
-	free(write);
-	free(argv);
+	test(rslt, write, argv, list);
 	return (rslt);
 }

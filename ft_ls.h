@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 12:07:36 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/11 12:29:28 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/12 15:01:28 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,14 @@ typedef struct		s_liste
 	int		option_t;
 }					t_liste;
 
+void				printno(char *str, size_t max);
+void				printless(t_data *content, t_liste *list, char *temp);
 int					promptgr(int len, int x, char *name);
 char				**traitor(char **argv, t_liste *list);
-int					freeMonChainon(t_liste *list, t_file *tmpfile);
-char				**redirectfunction(t_data *content, t_liste *list, char **add);
-t_file				*remplissage(t_file *rslt, struct stat plop, t_liste *list, char name[256]);
+char				**redirectfunction(t_data *content, t_liste *list,
+		char **add);
+t_file				*remplissage(t_file *rslt, struct stat plop, t_liste *list,
+		char name[256]);
 char				**ft_strstralpha(char **argv);
 char				**ft_strstrnew(size_t i);
 size_t				ft_strstrlen(char **c);

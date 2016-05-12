@@ -6,26 +6,26 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/11 12:15:12 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/12 15:17:17 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	printno(char *str, size_t max)
+void		printno(char *str, size_t max)
 {
-	while(ft_strlen(str) < max)
+	while (ft_strlen(str) < max)
 	{
 		max--;
 		ft_putchar(' ');
 	}
-		ft_putstr(str);
+	ft_putstr(str);
 }
 
 static void	printstr(char *str, size_t max)
 {
 	ft_putstr(str);
-	while(ft_strlen(str) < max)
+	while (ft_strlen(str) < max)
 	{
 		ft_putchar(' ');
 		max--;
@@ -47,23 +47,7 @@ static void	printloption(t_data *content, t_liste *list)
 	ft_putstr("  ");
 	printstr(content->groupuid, list->maxgidlen);
 	ft_putstr("  ");
-	if (content->type == 'b' || content->type == 'c')
-	{
-		temp = ft_itoa(content->major);
-		printno(temp, list->maxmajorlen + 1);
-		free(temp);
-		ft_putstr(", ");
-		temp = ft_itoa(content->minor);
-		printno(temp, list->maxminorlen);
-		free(temp);
-	}
-	else
-	{
-		temp = ft_itoa(content->size);
-		printno(temp, (list->maxsizelen > (list->maxmajorlen + list->maxminorlen + 1)) ? 
-				list->maxsizelen : list->maxmajorlen + list->maxminorlen + 1);
-		free(temp);
-	}
+	printless(content, list, temp);
 	ft_putstr(" ");
 	ft_putstr(content->date);
 	ft_putstr(" ");
@@ -75,11 +59,13 @@ static void	printloption(t_data *content, t_liste *list)
 	ft_putchar('\n');
 }
 
-char	**redirectfunction(t_data *content, t_liste *list, char **add)
+char		**redirectfunction(t_data *content, t_liste *list, char **add)
 {
 	char	*temp;
+
 	if (list->option_gr)
-		if(content->type == 'd' && ft_strcmp(content->name, ".") != 0 && ft_strcmp(content->name, "..") != 0)
+		if (content->type == 'd' && ft_strcmp(content->name, ".") != 0 &&
+				ft_strcmp(content->name, "..") != 0)
 		{
 			temp = nxtfd(list->initialpath, content->name);
 			add = ft_strstradd(ft_strdup(temp), add);
@@ -95,40 +81,28 @@ char	**redirectfunction(t_data *content, t_liste *list, char **add)
 char		**print(t_liste *list, char **yolo)
 {
 	char	**rslt;
-	t_file	*tmpfile;
+	t_file	*file;
 
-	rslt = ft_strstrnew(1);
-	tmpfile = list->first;
-	if(!tmpfile)
-	{
-		if (list->option_l)
-			ft_putendl("total 0");
-		return(ft_strstrdelfirst(yolo));
-	}
-	if ((list->option_l))
-	{
-		ft_putstr("total ");
-		ft_putnbr(list->totalsize);
-		ft_putchar('\n');
-	}
-	if (list->option_r == 0)
-	{
-		rslt = redirectfunction(tmpfile->content, list, rslt);
-		if (list->option_r == 0)
-			while ((tmpfile = tmpfile->next))
-				rslt = redirectfunction(tmpfile->content, list, rslt);
-	}
-	else
-	{
-		while ((tmpfile->next))
-			tmpfile = tmpfile->next;
-		rslt = redirectfunction(tmpfile->content, list, rslt);
-		while ((tmpfile = tmpfile->previous))
-			rslt = redirectfunction(tmpfile->content, list, rslt);
-	}
-	if(list->option_gr == 1 && rslt[0] != NULL)
-		return (ft_strstrjoin(rslt, ft_strstrdelfirst(yolo)));
-	else
-		free(rslt);
+	if ((file = list->first) && !file)
+		list->option_l == 1 ? ft_putendl("total 0") : NULL;
+	if ((rslt = ft_strstrnew(1)) && !file)
 		return (ft_strstrdelfirst(yolo));
+	list->option_l == 1 ? ft_putstr("total ") : NULL;
+	list->option_l == 1 ? ft_putnbr(list->totalsize) : NULL;
+	list->option_l == 1 ? ft_putchar('\n') : NULL;
+	if (!list->option_r && (rslt = redirectfunction(file->content, list, rslt)))
+		while ((file = file->next))
+			rslt = redirectfunction(file->content, list, rslt);
+	else
+	{
+		while ((file->next))
+			file = file->next;
+		rslt = redirectfunction(file->content, list, rslt);
+		while ((file = file->previous))
+			rslt = redirectfunction(file->content, list, rslt);
+	}
+	if (list->option_gr == 1 && rslt[0] != NULL)
+		return (ft_strstrjoin(rslt, ft_strstrdelfirst(yolo)));
+	free(rslt);
+	return (ft_strstrdelfirst(yolo));
 }

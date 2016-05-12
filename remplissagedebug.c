@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 11:57:23 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/12 10:04:51 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/12 16:35:33 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ static char		*ft_timels(char *time)
 	return (rslt);
 }
 
-t_file	*remplissage(t_file *rslt, struct stat plop, t_liste *list, char name[256])
+t_file			*remplissage(t_file *rslt, struct stat plop, t_liste *list,
+		char name[256])
 {
 	rslt->content->name = ft_strnew(ft_strlen(name));
 	rslt->content->name = ft_strcpy(rslt->content->name, name);
@@ -119,7 +120,7 @@ t_file			*ft_newfile(char *argv, struct dirent *file, t_liste *list)
 {
 	t_file		*rslt;
 	struct stat	plop;
-	char *temp;
+	char		*temp;
 
 	temp = nxtfd(argv, file->d_name);
 	if (lstat(temp, &plop) == -1)
@@ -163,7 +164,8 @@ t_file			*ft_newfile(char *argv, struct dirent *file, t_liste *list)
 		if (rslt->content->type == 'l')
 		{
 			ft_memset(rslt->content->linkto, 0, 1024);
-			readlink(ft_strjoin(argv, file->d_name), rslt->content->linkto, sizeof(rslt->content->linkto)-1);
+			readlink(ft_strjoin(argv, file->d_name), rslt->content->linkto,
+					sizeof(rslt->content->linkto) - 1);
 		}
 	}
 	return (rslt);

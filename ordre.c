@@ -6,18 +6,18 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/23 11:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/10 12:26:33 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/12 15:36:00 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int testalpha(t_liste *list)
+static int	testalpha(t_liste *list)
 {
-	t_file *tmpfile;
+	t_file	*tmpfile;
 
 	tmpfile = list->first;
-	while((tmpfile->next))
+	while ((tmpfile->next))
 	{
 		if (ft_strcmp(tmpfile->content->name, tmpfile->next->content->name) > 0)
 			return (0);
@@ -26,26 +26,26 @@ static int testalpha(t_liste *list)
 	return (1);
 }
 
-static int testtime(t_liste *list)
+static int	testtime(t_liste *list)
 {
-	t_file *tmpfile;
+	t_file	*tmpfile;
 
 	tmpfile = list->first;
-	while((tmpfile->next))
+	while ((tmpfile->next))
 	{
-		if(tmpfile->content->time < tmpfile->next->content->time)
-			return(0);
+		if (tmpfile->content->time < tmpfile->next->content->time)
+			return (0);
 		tmpfile = tmpfile->next;
 	}
 	return (1);
 }
 
-static int		teststrstralpha(char **argv)
+static int	teststrstralpha(char **argv)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(argv[i])
+	while (argv[i])
 	{
 		if (ft_strcmp(argv[i], argv[i + 1]) > 0)
 			return (0);
@@ -54,10 +54,10 @@ static int		teststrstralpha(char **argv)
 	return (1);
 }
 
-char	**ft_strstralpha(char **argv)
+char		**ft_strstralpha(char **argv)
 {
-	char *temp;
-	size_t i;
+	char	*temp;
+	size_t	i;
 
 	while (teststrstralpha(argv) == 0)
 	{
@@ -76,20 +76,20 @@ char	**ft_strstralpha(char **argv)
 	return (argv);
 }
 
-
-t_liste	*ft_lstalpha(t_liste *list)
+t_liste		*ft_lstalpha(t_liste *list)
 {
-	t_data *tmpdata;;
-	t_file *tmpfile;
+	t_data	*tmpdata;
+	t_file	*tmpfile;
 
-	if((list->option_t) || !list->first)
-		return(list);
-	while(!(testalpha(list)))
+	if ((list->option_t) || !list->first)
+		return (list);
+	while (!(testalpha(list)))
 	{
 		tmpfile = list->first;
-		while((tmpfile->next))
+		while ((tmpfile->next))
 		{
-			if (ft_strcmp(tmpfile->content->name, tmpfile->next->content->name) > 0)
+			if (ft_strcmp(tmpfile->content->name, tmpfile->next->content->name)
+					> 0)
 			{
 				tmpdata = tmpfile->content;
 				tmpfile->content = tmpfile->next->content;
@@ -101,19 +101,19 @@ t_liste	*ft_lstalpha(t_liste *list)
 	return (list);
 }
 
-t_liste	*ft_lsttime(t_liste *list)
+t_liste		*ft_lsttime(t_liste *list)
 {
 	t_data	*tmpdata;
 	t_file	*tmpfile;
 
 	if (!(list->option_t) || !list->first)
 		return (list);
-	while(!(testtime(list)))
+	while (!(testtime(list)))
 	{
 		tmpfile = list->first;
-		while((tmpfile->next))
+		while ((tmpfile->next))
 		{
-			if(tmpfile->content->time < tmpfile->next->content->time)
+			if (tmpfile->content->time < tmpfile->next->content->time)
 			{
 				tmpdata = tmpfile->content;
 				tmpfile->content = tmpfile->next->content;

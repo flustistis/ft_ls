@@ -6,13 +6,13 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 10:08:14 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/11 13:13:02 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/12 15:32:48 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int			ft_isin(char c, char *str)
+static int		ft_isin(char c, char *str)
 {
 	if (!(str))
 		return (0);
@@ -36,14 +36,14 @@ static char		*ft_charjoin(char *str, char c)
 	return (rslt);
 }
 
-int			isoption(char *argv)
+int				isoption(char *argv)
 {
-	if(argv)
-		if(argv[0])
+	if (argv)
+		if (argv[0])
 			if (argv[0] == '-')
 				if ((argv[1]))
 					return (1);
-		return (0);
+	return (0);
 }
 
 static char		*ft_optionstr(int argc, char **argv)
@@ -53,41 +53,32 @@ static char		*ft_optionstr(int argc, char **argv)
 	int		i;
 	int		x;
 
-	if (argc > 0)
+	if (argc <= 0)
+		return (NULL);
+	i = 1;
+	rslt = ft_strnew(1);
+	donnay = "lRart";
+	while (isoption(argv[i]) && ft_strcmp(argv[i], "--") != 0)
 	{
-		i = 1;
 		x = 1;
-		rslt = ft_strnew(1);
-		donnay = "lRart";
-		while (isoption(argv[i]) && ft_strcmp(argv[i], "--") != 0)
+		while (argv[i][x] && ft_isin(argv[i][x], donnay))
+			rslt = ft_charjoin(rslt, argv[i][x++]);
+		if (!(ft_isin(argv[i][x], donnay)) && argv[i][x])
 		{
-			x = 1;
-			while (argv[i][x] && ft_isin(argv[i][x], donnay))
-				rslt = ft_charjoin(rslt, argv[i][x++]);
-			if (!(ft_isin(argv[i][x], donnay)) && argv[i][x])
-			{
-				ft_putstr("ft_ls: illegal option -- ");
-				ft_putchar(argv[i][x]);
-				ft_putstr("\nusage: ft_ls [-Ralrt] [file ...]\n");
-				exit(-1);
-			}
-			i++;
+			ft_putstr("ft_ls: illegal option -- ");
+			ft_putchar(argv[i][x]);
+			ft_putstr("\nusage: ft_ls [-Ralrt] [file ...]\n");
+			exit(-1);
 		}
-		return (rslt);
+		i++;
 	}
-	return (NULL);
+	return (rslt);
 }
 
 t_liste			*ft_option(int argc, char **argv, t_liste *list)
 {
-	char	*str;/*
-	t_liste	*list;
+	char	*str;
 
-	list = NULL;
-	if ((list = (t_liste*)malloc(sizeof(t_liste))) == NULL)
-		return (NULL);
-	memset(list, 0, sizeof(t_liste));*/
-	//ft_bzero(&list, sizeof(*list));
 	list->option_l = 0;
 	list->option_gr = 0;
 	list->option_a = 0;
