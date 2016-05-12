@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:12:16 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/11 13:39:31 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/12 10:09:00 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,17 @@ char	*ft_lsargv(char *argv)
 	if ((argv))
 	{
 		if (ft_strcmp(argv,".") == 0)
-			return ("./");
+			return (ft_strdup("./"));
 		else if (argv[ft_strlen(argv) - 1] != '/')
+		{
 			return(ft_strjoin(argv, "/"));
+		}
 		else
+		{
 			return (argv);
+		}
 	}
-	return ("./");
+	return (ft_strdup("./"));
 }
 
 char	**traitor(char **argv, t_liste *list)
@@ -76,7 +80,7 @@ char	**traitor(char **argv, t_liste *list)
 			perror(ft_strjoin("ft_ls: ", argv[i]));
 		else
 		{
-			if(S_ISDIR(plop.st_mode))
+			if (S_ISDIR(plop.st_mode))
 				rslt = ft_strstradd(argv[i], rslt);
 			else
 				write = ft_strstradd(argv[i], write);

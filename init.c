@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 10:24:34 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/11 14:39:15 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/12 10:09:02 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,19 +85,13 @@ static t_file *initfile(t_file *filetmp, char *argv, t_liste *list)
 t_liste		*init(char *argv, t_liste *list)
 {
 	t_file	*filetmp;
+	char *temp;
 
-	filetmp = NULL;/*
-	if((filetmp = (t_file*)malloc(sizeof(t_file))) == NULL)
-		exit(-1);
-	if((filetmp->content = (t_data*) malloc(sizeof(t_data))) == NULL)
-		exit(-1);
-	filetmp->previous = NULL;
-	filetmp->next = NULL;
-	filetmp->content->name = NULL;
-	filetmp->content->type = 0;
-	filetmp->content->permission = NULL;*/
+	filetmp = NULL;
 	list->initialpath = NULL;
-	filetmp = initfile(filetmp, argv, list);
+	temp = ft_lsargv(argv);
+	filetmp = initfile(filetmp, temp, list);
+	free(temp);
 	if(list->ok == 0)
 	{
 		return (list);

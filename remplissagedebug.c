@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 11:57:23 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/11 14:39:19 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/12 10:04:51 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char		*ft_timels(char *time)
 	int		i;
 
 	i = 0;
-	if((rslt = (char*)malloc(sizeof(char) * 13)) == 0)
+	if ((rslt = (char*)malloc(sizeof(char) * 13)) == 0)
 		return (NULL);
 	while (*time != ' ')
 		time++;
@@ -99,7 +99,7 @@ t_file	*remplissage(t_file *rslt, struct stat plop, t_liste *list, char name[256
 		rslt->content->groupuid = ft_gid(plop.st_gid);
 		rslt->content->useruid = ft_uid(plop.st_uid);
 		rslt->content->size = (int)plop.st_size;
-		if(rslt->content->type == 'b' || rslt->content->type == 'c')
+		if (rslt->content->type == 'b' || rslt->content->type == 'c')
 		{
 			rslt->content->major = (int)major(plop.st_rdev);
 			rslt->content->minor = (int)minor(plop.st_rdev);
@@ -132,35 +132,35 @@ t_file			*ft_newfile(char *argv, struct dirent *file, t_liste *list)
 	free(temp);
 	if (!(rslt = (t_file*)malloc(sizeof(t_file))))
 		return (NULL);
-	if(!(rslt->content = (t_data*)malloc(sizeof(t_data))))
+	if (!(rslt->content = (t_data*)malloc(sizeof(t_data))))
 		return (NULL);
 	if (!(file))
 		return (NULL);
 	rslt = remplissage(rslt, plop, list, file->d_name);
-	if((list->option_l))
+	if ((list->option_l))
 	{
 		list->totalsize += (int)plop.st_blocks;
 		temp = ft_itoa(rslt->content->linkno);
-		if(ft_strlen(temp) > list->maxlinklen)
+		if (ft_strlen(temp) > list->maxlinklen)
 			list->maxlinklen = ft_strlen(temp);
 		free(temp);
-		if(ft_strlen(rslt->content->groupuid) > list->maxgidlen)
+		if (ft_strlen(rslt->content->groupuid) > list->maxgidlen)
 			list->maxgidlen = ft_strlen(rslt->content->groupuid);
-		if(ft_strlen(rslt->content->useruid) > list->maxuidlen)
+		if (ft_strlen(rslt->content->useruid) > list->maxuidlen)
 			list->maxuidlen = ft_strlen(rslt->content->useruid);
 		temp = ft_itoa(rslt->content->size);
-		if(ft_strlen(temp) > list->maxsizelen)
+		if (ft_strlen(temp) > list->maxsizelen)
 			list->maxsizelen = ft_strlen(temp);
 		free(temp);
 		temp = ft_itoa(rslt->content->major);
-		if(ft_strlen(temp) > list->maxmajorlen)
+		if (ft_strlen(temp) > list->maxmajorlen)
 			list->maxmajorlen = ft_strlen(temp);
 		free(temp);
 		temp = ft_itoa(rslt->content->minor);
-		if(ft_strlen(temp) > list->maxminorlen)
+		if (ft_strlen(temp) > list->maxminorlen)
 			list->maxminorlen = ft_strlen(temp);
 		free(temp);
-		if(rslt->content->type == 'l')
+		if (rslt->content->type == 'l')
 		{
 			ft_memset(rslt->content->linkto, 0, 1024);
 			readlink(ft_strjoin(argv, file->d_name), rslt->content->linkto, sizeof(rslt->content->linkto)-1);
