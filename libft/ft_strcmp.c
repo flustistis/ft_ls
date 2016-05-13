@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/27 16:48:04 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/04 10:33:42 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/13 10:11:03 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@ int		ft_strcmp(const char *s1, const char *s2)
 {
 	int i;
 
-	if(!s1)
+	if (!s1)
 	{
-		if(!s2)
+		if (!s2)
 			return (0);
 		else
 			return (1);

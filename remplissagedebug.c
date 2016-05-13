@@ -6,13 +6,13 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 11:57:23 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/12 16:35:33 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/13 11:05:04 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static char		ft_type(struct stat plop)
+char			ft_type(struct stat plop)
 {
 	if ((S_ISLNK(plop.st_mode)))
 		return ('l');
@@ -59,7 +59,30 @@ static char		*permission(struct stat plop)
 	return (rslt);
 }
 
-static char		*ft_timels(char *time)
+t_file			*remplissageforl(t_file *rslt, t_liste *list, struct stat plop)
+{
+	if ((list->option_l))
+	{
+		rslt->content->permission = permission(plop);
+		rslt->content->linkno = (int)plop.st_nlink;
+		rslt->content->groupuid = ft_gid(plop.st_gid);
+		rslt->content->useruid = ft_uid(plop.st_uid);
+		rslt->content->size = (int)plop.st_size;
+		if (rslt->content->type == 'b' || rslt->content->type == 'c')
+		{
+			rslt->content->major = (int)major(plop.st_rdev);
+			rslt->content->minor = (int)minor(plop.st_rdev);
+		}
+		else
+		{
+			rslt->content->major = 0;
+			rslt->content->minor = 0;
+		}
+	}
+	return (rslt);
+}
+
+char			*ft_timels(char *time)
 {
 	char	*rslt;
 	int		i;
@@ -80,42 +103,6 @@ static char		*ft_timels(char *time)
 	return (rslt);
 }
 
-t_file			*remplissage(t_file *rslt, struct stat plop, t_liste *list,
-		char name[256])
-{
-	rslt->content->name = ft_strnew(ft_strlen(name));
-	rslt->content->name = ft_strcpy(rslt->content->name, name);
-	if ((list->option_l) || (list->option_t))
-	{
-		name = ctime(&plop.st_mtime);
-		rslt->content->date = ft_timels(ctime(&plop.st_mtime));
-		rslt->content->time = plop.st_mtime;
-	}
-	if ((list->option_l) || (list->option_gr))
-		rslt->content->type = ft_type(plop);
-	if ((list->option_l))
-	{
-		rslt->content->permission = permission(plop);
-		rslt->content->linkno = (int)plop.st_nlink;
-		rslt->content->groupuid = ft_gid(plop.st_gid);
-		rslt->content->useruid = ft_uid(plop.st_uid);
-		rslt->content->size = (int)plop.st_size;
-		if (rslt->content->type == 'b' || rslt->content->type == 'c')
-		{
-			rslt->content->major = (int)major(plop.st_rdev);
-			rslt->content->minor = (int)minor(plop.st_rdev);
-		}
-		else
-		{
-			rslt->content->major = 0;
-			rslt->content->minor = 0;
-		}
-	}
-	rslt->next = NULL;
-	rslt->previous = NULL;
-	return (rslt);
-}
-
 t_file			*ft_newfile(char *argv, struct dirent *file, t_liste *list)
 {
 	t_file		*rslt;
@@ -131,42 +118,15 @@ t_file			*ft_newfile(char *argv, struct dirent *file, t_liste *list)
 		return (NULL);
 	}
 	free(temp);
-	if (!(rslt = (t_file*)malloc(sizeof(t_file))))
-		return (NULL);
-	if (!(rslt->content = (t_data*)malloc(sizeof(t_data))))
-		return (NULL);
-	if (!(file))
+	if (!(rslt = (t_file*)malloc(sizeof(t_file))) ||
+			!(rslt->content = (t_data*)malloc(sizeof(t_data))) || !(file))
 		return (NULL);
 	rslt = remplissage(rslt, plop, list, file->d_name);
+	list->totalsize += (int)plop.st_blocks;
 	if ((list->option_l))
-	{
-		list->totalsize += (int)plop.st_blocks;
-		temp = ft_itoa(rslt->content->linkno);
-		if (ft_strlen(temp) > list->maxlinklen)
-			list->maxlinklen = ft_strlen(temp);
-		free(temp);
-		if (ft_strlen(rslt->content->groupuid) > list->maxgidlen)
-			list->maxgidlen = ft_strlen(rslt->content->groupuid);
-		if (ft_strlen(rslt->content->useruid) > list->maxuidlen)
-			list->maxuidlen = ft_strlen(rslt->content->useruid);
-		temp = ft_itoa(rslt->content->size);
-		if (ft_strlen(temp) > list->maxsizelen)
-			list->maxsizelen = ft_strlen(temp);
-		free(temp);
-		temp = ft_itoa(rslt->content->major);
-		if (ft_strlen(temp) > list->maxmajorlen)
-			list->maxmajorlen = ft_strlen(temp);
-		free(temp);
-		temp = ft_itoa(rslt->content->minor);
-		if (ft_strlen(temp) > list->maxminorlen)
-			list->maxminorlen = ft_strlen(temp);
-		free(temp);
-		if (rslt->content->type == 'l')
-		{
-			ft_memset(rslt->content->linkto, 0, 1024);
-			readlink(ft_strjoin(argv, file->d_name), rslt->content->linkto,
-					sizeof(rslt->content->linkto) - 1);
-		}
-	}
+		list = testifl(rslt, list, temp);
+	if ((list->option_l))
+		rslt->content->type == 'l' ? readlink(ft_strjoin(argv, file->d_name),
+				rslt->content->linkto, sizeof(rslt->content->linkto) - 1) : 0;
 	return (rslt);
 }

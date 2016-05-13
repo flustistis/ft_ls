@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:12:16 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/12 15:17:14 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/13 11:42:46 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static void	printwrite(char **write, t_liste *list)
 	free(file);
 	free(dash);
 }
-void printless(t_data *content, t_liste *list, char *temp)
+
+void		printless(t_data *content, t_liste *list, char *temp)
 {
 	if (content->type == 'b' || content->type == 'c')
 	{
@@ -50,7 +51,7 @@ void printless(t_data *content, t_liste *list, char *temp)
 		temp = ft_itoa(content->minor);
 		printno(temp, list->maxminorlen);
 		free(temp);
-		}
+	}
 	else
 	{
 		temp = ft_itoa(content->size);
@@ -75,17 +76,16 @@ char		*ft_lsargv(char *argv)
 	return (ft_strdup("./"));
 }
 
-void	test(char **rslt, char **write, char **argv, t_liste *list)
+void		test(char **rslt, char **write, char **argv, int *x)
 {
-	int i;
+	int	i;
 
-	printwrite(write, list);
 	if ((rslt[0]) && (write[0]))
 	{
-		ft_putchar('\n');
-		ft_putstr(rslt[0]);
-		ft_putstr(":\n");
+		*x = 1;
 	}
+	else
+		*x = 0;
 	i = 0;
 	while (write[i])
 		free(write[i++]);
@@ -93,7 +93,7 @@ void	test(char **rslt, char **write, char **argv, t_liste *list)
 	free(argv);
 }
 
-char		**traitor(char **argv, t_liste *list)
+char		**traitor(char **argv, t_liste *list, int *x)
 {
 	char		**rslt;
 	size_t		i;
@@ -117,6 +117,7 @@ char		**traitor(char **argv, t_liste *list)
 		}
 		i++;
 	}
-	test(rslt, write, argv, list);
+	printwrite(write, list);
+	test(rslt, write, argv, x);
 	return (rslt);
 }
