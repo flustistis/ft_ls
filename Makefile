@@ -6,7 +6,7 @@
 #    By: gmorer <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/21 13:35:40 by gmorer            #+#    #+#              #
-#    Updated: 2016/05/13 11:41:30 by gmorer           ###   ########.fr        #
+#    Updated: 2016/05/13 17:21:24 by gmorer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,17 +24,20 @@ SRC = \
 	init.c\
 	libstrstr.c\
 	prompt.c
-CFLAGS = -Werror -Wextra -Wall
+OBJ = $(SRC:.c=.o)
+CFLAGS = -Werror -Wextra -Wall -march=native
 INC = libft/libft.a
 LIB = libft/
 
 .PHONY: all clean fclean re
 
-all : $(NAME)
-
-$(NAME) :
+%.o: %.c
+	$(CC) -I $(LIB) -o $@ -c $? $(CFLAGS)
+$(NAME): $(OBJ)
 	make -C libft
 	$(CC) $(CFLAGS) $(SRC) -L $(LIB) $(INC) -o $(NAME)
+
+all : $(NAME)
 
 debug :
 	make -C libft
