@@ -29,11 +29,12 @@ static void	printwrite(char **write, t_liste *list)
 		file = remplissage(file, plop, list, write[i++]);
 		redirectfunction(file->content, list, dash);
 		list->option_l ? free(file->content->groupuid) : NULL;
+		list->option_l ? free(file->content->useruid) : NULL;
 		list->option_l ? free(file->content->permission) : NULL;
 		list->option_l || list->option_t ? free(file->content->date) : NULL;
+		ft_putstr("free de ");
+		ft_putendl(file->content->name);
 		free(file->content->name);
-		if (list->option_t)
-			free(file->content->date);
 	}
 	free(file->content);
 	free(file);

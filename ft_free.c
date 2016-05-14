@@ -20,6 +20,7 @@ int			free_mon_chainon(t_liste *list, t_file *tmpfile)
 		free(tmpfile->content->permission);
 		free(tmpfile->content->date);
 		free(tmpfile->content->groupuid);
+		free(tmpfile->content->useruid);
 	}
 	free(tmpfile->content);
 	if (tmpfile->next)

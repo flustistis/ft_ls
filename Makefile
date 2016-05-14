@@ -48,6 +48,6 @@ clean :
 
 fclean : clean
 	make -C libft fclean
-	rm -f $(NAME)
+	rm -f $(NAME) $(OBJ)
 
 re : fclean all

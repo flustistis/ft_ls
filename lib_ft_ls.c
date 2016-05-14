@@ -43,8 +43,8 @@ char		*ft_uid(unsigned int uid)
 	struct passwd	*yolo;
 
 	if ((yolo = getpwuid(uid)))
-		return (yolo->pw_name);
-	return (NULL);
+		return (ft_strdup(yolo->pw_name));
+	return (ft_itoa((int)uid));
 }
 
 char		*ft_gid(unsigned int gid)
