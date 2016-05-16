@@ -32,8 +32,6 @@ static void	printwrite(char **write, t_liste *list)
 		list->option_l ? free(file->content->useruid) : NULL;
 		list->option_l ? free(file->content->permission) : NULL;
 		list->option_l || list->option_t ? free(file->content->date) : NULL;
-		ft_putstr("free de ");
-		ft_putendl(file->content->name);
 		free(file->content->name);
 	}
 	free(file->content);
@@ -102,6 +100,7 @@ char		**traitor(char **argv, t_liste *list, int *x)
 	char		**write;
 
 	argv = ft_strstralpha(argv);
+	list->option_r ? argv = ft_strstrrev(argv) : NULL;
 	rslt = ft_strstrnew(0);
 	write = ft_strstrnew(0);
 	i = 0;
@@ -118,7 +117,7 @@ char		**traitor(char **argv, t_liste *list, int *x)
 		}
 		i++;
 	}
-	printwrite(write, list);
+	printwrite(write , list);
 	test(rslt, write, argv, x);
 	return (rslt);
 }

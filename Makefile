@@ -23,7 +23,8 @@ SRC = \
 	ordre.c\
 	init.c\
 	libstrstr.c\
-	prompt.c
+	prompt.c\
+	end.c
 OBJ = $(SRC:.c=.o)
 CFLAGS = -Werror -Wextra -Wall -march=native
 INC = libft/libft.a
@@ -32,7 +33,7 @@ LIB = libft/
 .PHONY: all clean fclean re
 
 %.o: %.c
-	$(CC) -I $(LIB) -o $@ -c $? $(CFLAGS)
+	$(CC) $(CFLAGS) -I $(LIB) -o $@ -c $?
 $(NAME): $(OBJ)
 	make -C libft
 	$(CC) $(CFLAGS) $(SRC) -L $(LIB) $(INC) -o $(NAME)

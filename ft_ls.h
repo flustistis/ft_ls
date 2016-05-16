@@ -82,6 +82,7 @@ t_file				*remplissage(t_file *rslt, struct stat plop, t_liste *list,
 char				**ft_strstralpha(char **argv);
 char				**ft_strstrnew(size_t i);
 size_t				ft_strstrlen(char **c);
+char				**ft_strstrrev(char **c);
 char				**ft_strstrjoin(char **s1, char **s2);
 char				**ft_strstradd(char *str, char **tab);
 char				**ft_strstrdelfirst(char **c);
