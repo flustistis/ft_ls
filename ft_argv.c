@@ -6,12 +6,28 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/03 11:12:16 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/13 11:42:46 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/19 14:10:02 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+/*
+char	*tab_to_point(char *str)
+{
+	char	rslt[256];
+	int		i;
 
+	ft_bzero(rslt, 256);
+	i = 0;
+	while(str[i] && i < 255)
+	{
+		rslt[i] = str[i];
+		i++;
+	}
+	rslt[i] = (char)0;
+	return (rslt);
+}
+*/
 static void	printwrite(char **write, t_liste *list)
 {
 	int			i;
@@ -26,7 +42,8 @@ static void	printwrite(char **write, t_liste *list)
 	while (write[i])
 	{
 		lstat(write[i], &plop) == -1 ? exit(-1) : NULL;
-		file = remplissage(file, plop, list, write[i++]);
+		//file = remplissage(file, plop, list, write[i++]);
+		file = ft_newfile("./", write[i++], list);
 		redirectfunction(file->content, list, dash);
 		list->option_l ? free(file->content->groupuid) : NULL;
 		list->option_l ? free(file->content->useruid) : NULL;
@@ -55,8 +72,8 @@ void		printless(t_data *content, t_liste *list, char *temp)
 	{
 		temp = ft_itoa(content->size);
 		printno(temp, (list->maxsizelen > (list->maxmajorlen +
-		list->maxminorlen + 1)) ? list->maxsizelen :
-		list->maxmajorlen + list->maxminorlen + 1);
+		list->maxminorlen + 3)) ? list->maxsizelen :
+		list->maxmajorlen + list->maxminorlen + 3);
 		free(temp);
 	}
 }

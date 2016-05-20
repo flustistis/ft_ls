@@ -6,7 +6,7 @@
 #    By: gmorer <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/21 13:35:40 by gmorer            #+#    #+#              #
-#    Updated: 2016/05/13 17:21:24 by gmorer           ###   ########.fr        #
+#    Updated: 2016/05/20 11:14:09 by gmorer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ SRC = \
 	ordre.c\
 	init.c\
 	libstrstr.c\
-	prompt.c\
-	end.c
+	prompt.c
+
 OBJ = $(SRC:.c=.o)
 CFLAGS = -Werror -Wextra -Wall -march=native
 INC = libft/libft.a
@@ -46,6 +46,7 @@ debug :
 
 clean :
 	make -C libft clean
+	rm -rf $(OBJ)
 
 fclean : clean
 	make -C libft fclean

@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 11:57:23 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/13 11:05:04 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/19 14:22:11 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,13 @@ char			*ft_timels(char *time)
 	return (rslt);
 }
 
-t_file			*ft_newfile(char *argv, struct dirent *file, t_liste *list)
+t_file			*ft_newfile(char *argv, char name[256], t_liste *list)
 {
 	t_file		*rslt;
 	struct stat	plop;
 	char		*temp;
 
-	temp = nxtfd(argv, file->d_name);
+	temp = nxtfd(argv, name);
 	if (lstat(temp, &plop) == -1)
 	{
 		temp = ft_strjoin("ft_ls :", temp);
@@ -119,14 +119,14 @@ t_file			*ft_newfile(char *argv, struct dirent *file, t_liste *list)
 	}
 	free(temp);
 	if (!(rslt = (t_file*)malloc(sizeof(t_file))) ||
-			!(rslt->content = (t_data*)malloc(sizeof(t_data))) || !(file))
+			!(rslt->content = (t_data*)malloc(sizeof(t_data))) || !(name))
 		return (NULL);
-	rslt = remplissage(rslt, plop, list, file->d_name);
+	rslt = remplissage(rslt, plop, list, name);
 	list->totalsize += (int)plop.st_blocks;
 	if ((list->option_l))
 		list = testifl(rslt, list, temp);
 	if ((list->option_l))
-		rslt->content->type == 'l' ? readlink(ft_strjoin(argv, file->d_name),
+		rslt->content->type == 'l' ? readlink(ft_strjoin(argv, name),
 				rslt->content->linkto, sizeof(rslt->content->linkto) - 1) : 0;
 	return (rslt);
 }

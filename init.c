@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/30 10:24:34 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/12 15:23:55 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/19 12:15:35 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ static t_file	*initfile(t_file *filetmp, char *argv, t_liste *list)
 		if ((list->option_a) || (!list->option_a && file->d_name[0] != '.'))
 		{
 			if ((filetmp))
-				filetmp->next = ft_newfile(argv, file, list);
+				filetmp->next = ft_newfile(argv, file->d_name, list);
 			else
-				filetmp = ft_newfile(argv, file, list);
+				filetmp = ft_newfile(argv, file->d_name, list);
 			if ((filetmp) && (filetmp->next))
 				filetmp->next->previous = filetmp;
 			((filetmp) && (filetmp->next)) ? filetmp = filetmp->next : NULL;

@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 12:07:36 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/13 11:39:37 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/19 12:14:58 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char				**print(t_liste *list, char **yolo);
 int					ft_free(t_liste *list);
 int					isoption(char *argv);
 char				*ft_lsargv(char *argv);
-t_file				*ft_newfile(char *argv, struct dirent *file, t_liste *list);
+t_file				*ft_newfile(char *argv, char name[256], t_liste *list);
 char				*strcatturfu(char *s1, char *s2);
 char				*ft_uid(unsigned int uid);
 char				*ft_gid(unsigned int gid);
