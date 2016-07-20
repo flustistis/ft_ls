@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 16:20:21 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/19 14:22:25 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/07/20 16:29:11 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ char		**print(t_liste *list, char **yolo)
 	if ((file = list->first) && !file)
 		list->option_l == 1 ? ft_putendl("total 0") : NULL;
 	if ((rslt = ft_strstrnew(1)) && !file)
+	{
+		free(rslt);
 		return (ft_strstrdelfirst(yolo));
+	}
 	list->option_l == 1 ? ft_putstr("total ") : NULL;
 	list->option_l == 1 ? ft_putnbr(list->totalsize) : NULL;
 	list->option_l == 1 ? ft_putchar('\n') : NULL;
