@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/12 16:35:42 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/20 11:13:42 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/05/27 09:53:20 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_liste	*testifl(t_file *rslt, t_liste *list, char *temp)
 	return (list);
 }
 
-char**ft_strstrrev(char **c)
+char	**ft_strstrrev(char **c)
 {
 	size_t	len;
 	size_t	i;

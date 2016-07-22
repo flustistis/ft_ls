@@ -6,7 +6,7 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 11:57:23 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/19 14:22:11 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/07/22 13:01:18 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,7 @@ t_file			*ft_newfile(char *argv, char name[256], t_liste *list)
 	struct stat	plop;
 	char		*temp;
 
-	temp = nxtfd(argv, name);
-	if (lstat(temp, &plop) == -1)
+	if ((temp = nxtfd(argv, name)) && lstat(temp, &plop) == -1)
 	{
 		temp = ft_strjoin("ft_ls :", temp);
 		perror(temp);
@@ -125,8 +124,9 @@ t_file			*ft_newfile(char *argv, char name[256], t_liste *list)
 	list->totalsize += (int)plop.st_blocks;
 	if ((list->option_l))
 		list = testifl(rslt, list, temp);
-	if ((list->option_l))
-		rslt->content->type == 'l' ? readlink(ft_strjoin(argv, name),
-				rslt->content->linkto, sizeof(rslt->content->linkto) - 1) : 0;
+	temp = ft_strjoin(argv, name);
+	if ((list->option_l) && rslt->content->type == 'l')
+		readlink(temp, rslt->content->linkto, sizeof(char) * 1024 - 1);
+	free(temp);
 	return (rslt);
 }

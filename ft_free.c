@@ -6,13 +6,13 @@
 /*   By: gmorer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:37:46 by gmorer            #+#    #+#             */
-/*   Updated: 2016/05/13 10:34:28 by gmorer           ###   ########.fr       */
+/*   Updated: 2016/07/22 12:32:26 by gmorer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int			free_mon_chainon(t_liste *list, t_file *tmpfile)
+static int	free_mon_chainon(t_liste *list, t_file *tmpfile)
 {
 	free(tmpfile->content->name);
 	if (list->option_l)
